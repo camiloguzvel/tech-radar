@@ -1,0 +1,17 @@
+# Datos (locales; OPS no permite redistribuir crudo)
+data/
+*.parquet
+*.duckdb
+
+# Secretos
+.env
+
+# Python / uv
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Claude Code local
+.claude/settings.local.json

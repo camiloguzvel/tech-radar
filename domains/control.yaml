@@ -1,0 +1,21 @@
+# Dominio de CONTROL: solo sirve para calibrar umbrales con una inflexión conocida y de
+# alto volumen. No aparece en el memo (role: calibration).
+# CPC pendiente de validar contra el esquema 2026.08 (spike F0-g).
+domain: control
+name: Control de calibración
+role: calibration
+version: "0.1"
+thesis: >
+  Frente de referencia con una inflexión conocida, usado solo para fijar umbrales.
+
+frentes:
+  - id: ion_sodio
+    name: Baterías de ion-sodio
+    rule: cpc+keyword
+    cpc_any: ["H01M10/054", "H01M4/36", "H01M4/58"]
+    keywords_any: ["sodium-ion", "sodium ion", "Na-ion"]
+    openalex_topics:
+      - name: Advanced Battery Materials and Technologies
+
+lenses: [all, international]
+min_families_per_period: 30

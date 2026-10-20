@@ -1,0 +1,50 @@
+# Dominio piloto. Reemplaza "agricultura regenerativa" (práctica poco patentable).
+# CPC y topics pendientes de validación en el spike F0 (ver agua.yaml).
+domain: agrobiotech
+name: Agrobiotech y bioinsumos
+version: "0.1"
+thesis: >
+  Edición génica sin transgénesis (marcos regulatorios NGT), presión sobre
+  agroquímicos y fertilizantes nitrogenados, y caída de costos de secuenciación
+  habilitan biológicos y cultivos editados.
+
+frentes:
+  - id: edicion_genica_vegetal
+    name: Edición génica en plantas
+    rule: cpc+keyword
+    cpc_any: ["C12N15/82", "C12N15/8201", "C12N15/8213", "A01H1/00", "A01H1/06", "A01H6"]
+    keywords_any: ["CRISPR", "Cas9", "Cas12", "base editing", "prime editing", "genome editing"]
+    openalex_topics:
+      - name: CRISPR and Genetic Engineering
+      - name: Plant genetic and mutation studies
+
+  - id: biopesticidas
+    name: Biocontrol y biopesticidas
+    rule: cpc
+    cpc_any: ["A01N63", "A01P"]
+    openalex_topics:
+      - name: Biological control of plant pathogens
+      - name: Entomopathogenic microorganisms in pest control
+
+  - id: bioestimulantes_fijacion_n
+    name: Bioestimulantes y fijación biológica de N
+    rule: cpc+keyword
+    cpc_any: ["C05F11/08", "C05G3/60", "C12N1/20", "C12R2001"]
+    keywords_any: ["biostimulant", "nitrogen-fixing", "plant growth-promoting", "PGPR",
+                   "rhizobacteria"]
+
+  - id: rnai_spray
+    name: RNAi tópico (dsRNA)
+    rule: cpc+keyword
+    cpc_any: ["C12N15/113", "A01N57/16"]
+    keyword_groups:  # AND entre grupos, OR dentro de cada grupo
+      - ["dsRNA", "RNAi", "double-stranded RNA"]
+      - ["plant", "crop", "pest", "spray"]
+
+  - id: agricultura_precision
+    name: Agricultura de precisión y suelo
+    rule: cpc
+    cpc_any: ["A01B79/005", "A01C21/007", "A01G25/16", "G01N33/24", "G06Q50/02"]
+
+lenses: [all, international]
+min_families_per_period: 30

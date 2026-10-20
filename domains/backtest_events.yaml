@@ -1,0 +1,61 @@
+# Eventos históricos PRE-REGISTRADOS para el backtest (plan §7).
+# Se fijaron ANTES de mirar los datos para evitar sesgo retrospectivo.
+# status: validado = Camilo lo aprobó para el backtest (2026-10-19).
+# mainstream_date y source quedan en null hasta tener una referencia citable:
+# nunca se completan con datos inventados.
+version: "0.2"
+events:
+  - id: pfas_tratamiento
+    domain: agua
+    frente: pfas_remocion
+    description: Auge del tratamiento/destrucción de PFAS tras la presión regulatoria (EPA, UE).
+    expected_window: [2019, 2024]
+    mainstream_date: null
+    source: null
+    status: validado
+
+  - id: crispr_cultivos
+    domain: agrobiotech
+    frente: edicion_genica_vegetal
+    description: Despegue de la edición CRISPR en cultivos.
+    expected_window: [2015, 2019]
+    mainstream_date: null
+    source: null
+    status: validado
+    note: Caso débil. Con el histórico desde 2014 casi no hay línea base previa al despegue.
+
+  - id: agua_atmosferica_mofs
+    domain: agua
+    frente: agua_atmosferica
+    description: Captación de agua atmosférica con sorbentes MOF.
+    expected_window: [2017, 2021]
+    mainstream_date: null
+    source: null
+    status: validado
+
+  - id: bioestimulantes_reglamento_ue
+    domain: agrobiotech
+    frente: bioestimulantes_fijacion_n
+    description: Bioestimulantes tras el Reglamento UE de productos fertilizantes 2019/1009.
+    expected_window: [2019, 2023]
+    mainstream_date: null
+    source: null
+    status: validado
+
+  - id: rnai_spray
+    domain: agrobiotech
+    frente: rnai_spray
+    description: RNAi tópico (dsRNA en spray) como alternativa a pesticidas.
+    expected_window: [2020, 2025]
+    mainstream_date: null
+    source: null
+    status: propuesto
+
+  - id: ion_sodio_control
+    domain: control
+    frente: ion_sodio
+    description: Inflexión de baterías de ion-sodio (frente de control, solo para calibrar umbrales).
+    expected_window: [2020, 2023]
+    mainstream_date: null
+    source: null
+    status: propuesto

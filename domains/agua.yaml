@@ -1,0 +1,58 @@
+# Dominio piloto. Los símbolos CPC tienen formato válido pero su existencia y alcance
+# se validan contra el esquema CPC 2026.08 en el spike F0 (docs/decisions/).
+# Los topics de OpenAlex son nombres candidatos: el id se resuelve en el spike F0-c.
+domain: agua
+name: Tecnologías del agua
+version: "0.1"
+thesis: >
+  Regulación de contaminantes emergentes (PFAS), escasez hídrica y reutilización
+  industrial (semiconductores, data centers) empujan tratamiento avanzado y
+  fuentes no convencionales.
+
+frentes:
+  - id: pfas_remocion
+    name: Remoción/destrucción de PFAS
+    rule: cpc+keyword  # el CPC solo es demasiado amplio
+    cpc_any: ["C02F1/28", "C02F1/44", "C02F1/461", "C02F1/72", "B01J20", "A62D3"]
+    keywords_any: ["PFAS", "perfluoro", "polyfluoro", "PFOA", "PFOS"]
+    openalex_topics:
+      - name: Per- and polyfluoroalkyl substances research
+
+  - id: desalinizacion_membranas
+    name: Desalinización y membranas
+    rule: cpc
+    cpc_any: ["C02F1/441", "C02F1/442", "C02F1/444", "C02F1/445", "C02F1/469",
+              "B01D61/02", "B01D61/025", "B01D61/027", "B01D61/14", "B01D61/36",
+              "B01D69", "B01D71"]
+    cpc_combined_with: ["C02F2103/08"]  # agua de mar; opcional, sube la precisión
+    openalex_topics:
+      - name: Membrane Separation Technologies
+      - name: Membrane-based Ion Separation Techniques
+
+  - id: agua_atmosferica
+    name: Captación de agua atmosférica
+    rule: cpc|keyword
+    cpc_any: ["E03B3/28", "B01D5/0039", "B01D53/26"]
+    keywords_any: ["atmospheric water", "water harvesting", "metal-organic framework"]
+    openalex_topics:
+      - name: Atmospheric water harvesting sorbents
+
+  - id: reutilizacion_avanzada
+    name: Reutilización y oxidación avanzada
+    rule: cpc
+    cpc_any: ["C02F1/72", "C02F1/78", "C02F1/32", "C02F2101/30", "C02F2103/34"]
+    openalex_topics:
+      - name: Advanced oxidation water treatment
+
+  - id: redes_inteligentes
+    name: Monitoreo y redes inteligentes de agua
+    rule: cpc|keyword
+    cpc_any: ["E03B7/07", "E03B7/071", "G01M3/28", "G01N33/18"]
+    keywords_any: ["leak detection", "water network", "smart water"]
+
+exclude:
+  cpc_only_if_alone: ["C02F2201", "C02F2209"]  # códigos auxiliares de indexación
+  keywords_any: ["ballast water"]
+
+lenses: [all, international]
+min_families_per_period: 30
