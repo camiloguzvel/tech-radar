@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import typer
 
+from radar.domains.cpc import DEFAULT_TITLE_LIST, CpcScheme, invalid_codes
 from radar.domains.loader import load_backtest, load_domains, load_hubs
 
 app = typer.Typer(no_args_is_help=True, add_completion=False)
@@ -35,6 +36,16 @@ def validate(
     typer.echo(
         f"backtest v{backtest.version}: {len(backtest.events)} eventos ({pending} sin validar)"
     )
+
+    if DEFAULT_TITLE_LIST.exists():
+        bad = invalid_codes(domains, CpcScheme.from_title_list())
+        typer.echo(f"CPC ({DEFAULT_TITLE_LIST.stem}): {len(bad)} códigos inválidos")
+        if bad:
+            for item in bad:
+                typer.echo(f"  CPC inexistente: {item}", err=True)
+            raise typer.Exit(1)
+    else:
+        typer.echo("CPC: lista oficial no descargada, se omite la validación (ver ADR F0-g)")
 
     if strict and (unresolved or pending):
         typer.echo("strict: hay topics sin resolver o eventos sin validar", err=True)

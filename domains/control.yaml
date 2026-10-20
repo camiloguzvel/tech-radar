@@ -1,10 +1,10 @@
 # Dominio de CONTROL: solo sirve para calibrar umbrales con una inflexión conocida y de
 # alto volumen. No aparece en el memo (role: calibration).
-# CPC pendiente de validar (spike F0-g). Topics resueltos en el spike F0-c.
+# CPC validado contra 2026.08 (ADR F0-g). Topics resueltos en el spike F0-c.
 domain: control
 name: Control de calibración
 role: calibration
-version: "0.2"
+version: "0.3"
 thesis: >
   Frente de referencia con una inflexión conocida, usado solo para fijar umbrales.
 

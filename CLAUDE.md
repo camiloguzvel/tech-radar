@@ -30,6 +30,9 @@ No medir "cuánta tecnología hay". Plan completo y decisiones: `docs/plan.md`; 
   `type:article|review|preprint`, `to_publication_date` = hoy); espaciar ≥1 s y reintentar el 429 con
   backoff; métricas científicas sobre participación (frente / total anual), nunca conteos crudos.
 - Cambios a un bloque `science` se justifican con los sets etiquetados, no mirando series (evita sobreajuste).
+- CPC (ADR F0-g): leer el título oficial antes de añadir un código; cada código incluye sus subgrupos por
+  jerarquía (`CpcScheme.expand`), nunca por prefijo de texto; los códigos amplios van en `cpc_qualified`
+  con un contexto. `radar validate` verifica la existencia si `data/ref/cpc-202608/` está descargado.
 
 ## Reglas para LLM
 - Usar LLM solo para: casos frontera de clasificación, traducción residual, nombres de clusters, borradores de memo.

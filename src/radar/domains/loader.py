@@ -82,13 +82,23 @@ class ScienceDef(KeywordSpec):
         return self
 
 
+class CpcQualified(_Model):
+    """Códigos que solo cuentan si la familia también tiene alguno de `with_any`
+    (p. ej. membranas B01D69 solo si hay tratamiento de agua C02F). ADR F0-g."""
+
+    codes: list[CpcCode] = Field(min_length=1)
+    with_any: list[CpcCode] = Field(min_length=1)
+
+
 class Frente(KeywordSpec):
     """Unidad de detección de señales.
 
-    Pertenencia de patentes (keywords heredadas de `KeywordSpec`):
-    - `cpc`: alguna clase de `cpc_any`.
-    - `cpc+keyword`: alguna clase de `cpc_any` Y coincidencia de keywords.
-    - `cpc|keyword`: alguna clase de `cpc_any` O coincidencia de keywords.
+    Pertenencia de patentes (keywords heredadas de `KeywordSpec`). "Coincidencia CPC" =
+    algún código de `cpc_any`, o alguno de `cpc_qualified` con su contexto; cada código
+    incluye sus subgrupos según la jerarquía oficial (`radar.domains.cpc`).
+    - `cpc`: coincidencia CPC.
+    - `cpc+keyword`: coincidencia CPC Y keywords.
+    - `cpc|keyword`: coincidencia CPC O keywords.
     Pertenencia de publicaciones: bloque `science` (ver `ScienceDef`).
     """
 
@@ -96,12 +106,12 @@ class Frente(KeywordSpec):
     name: str
     rule: Literal["cpc", "cpc+keyword", "cpc|keyword"]
     cpc_any: list[CpcCode] = Field(default_factory=list)
-    cpc_combined_with: list[CpcCode] = Field(default_factory=list)
+    cpc_qualified: list[CpcQualified] = Field(default_factory=list)
     science: ScienceDef
 
     @model_validator(mode="after")
     def _rule_has_inputs(self) -> Frente:
-        if not self.cpc_any:
+        if not (self.cpc_any or self.cpc_qualified):
             raise ValueError(f"frente {self.id}: la regla {self.rule!r} requiere cpc_any")
         if self.rule != "cpc" and not self.has_keywords:
             raise ValueError(f"frente {self.id}: la regla {self.rule!r} requiere keywords")

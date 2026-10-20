@@ -1,8 +1,8 @@
 # Dominio piloto. Reemplaza "agricultura regenerativa" (práctica poco patentable).
-# CPC pendiente de validar (spike F0-g). Topics resueltos en el spike F0-c (2026-10-19).
+# CPC validado contra 2026.08 (ADR F0-g). Topics resueltos en el spike F0-c (2026-10-19).
 domain: agrobiotech
 name: Agrobiotech y bioinsumos
-version: "0.2"
+version: "0.3"
 thesis: >
   Edición génica sin transgénesis (marcos regulatorios NGT), presión sobre
   agroquímicos y fertilizantes nitrogenados, y caída de costos de secuenciación
@@ -12,7 +12,11 @@ frentes:
   - id: edicion_genica_vegetal
     name: Edición génica en plantas
     rule: cpc+keyword
-    cpc_any: ["C12N15/82", "C12N15/8201", "C12N15/8213", "A01H1/00", "A01H1/06", "A01H6"]
+    cpc_any: ["C12N15/82", "A01H1/00", "A01H6"]  # C12N15/82 ya incluye 8201, 8213...
+    cpc_qualified:
+      # Cas (C12N9/222) e índice CRISPR (C12N2310/20) solo en contexto vegetal
+      - codes: ["C12N9/222", "C12N2310/20"]
+        with_any: ["C12N15/82", "A01H"]
     keywords_any: ["CRISPR", "Cas9", "Cas12", "base editing", "prime editing", "genome editing"]
     science:
       rule: topic+keyword  # el topic CRISPR incluye edición humana y animal
@@ -26,7 +30,9 @@ frentes:
   - id: biopesticidas
     name: Biocontrol y biopesticidas
     rule: cpc
-    cpc_any: ["A01N63", "A01P"]
+    # A01N63: microorganismos, virus, ácidos nucleicos; A01N65: algas y extractos vegetales.
+    # Se quitó A01P (actividad de cualquier pesticida, incluidos los químicos).
+    cpc_any: ["A01N63", "A01N65"]
     science:
       # el topic incluye taxonomía de hongos; brecha: no hay topic para biocontrol de
       # patógenos vegetales
@@ -39,7 +45,10 @@ frentes:
   - id: bioestimulantes_fijacion_n
     name: Bioestimulantes y fijación biológica de N
     rule: cpc+keyword
-    cpc_any: ["C05F11/08", "C05G3/60", "C12N1/20", "C12R2001"]
+    # C05F11/08 fertilizantes con cultivos bacterianos; C05F11/10 con hormonas vegetales.
+    # Se quitó C05G3/60 (biocidas en fertilizantes, no bioestimulantes). No existe un código
+    # CPC específico de bioestimulantes: las keywords hacen el trabajo.
+    cpc_any: ["C05F11/08", "C05F11/10", "A01N63", "C12N1/20", "C12R2001"]
     keywords_any: ["biostimulant", "nitrogen-fixing", "plant growth-promoting", "PGPR",
                    "rhizobacteria"]
     science:
@@ -53,7 +62,9 @@ frentes:
   - id: rnai_spray
     name: RNAi tópico (dsRNA)
     rule: cpc+keyword
-    cpc_any: ["C12N15/113", "A01N57/16"]
+    # A01N63/60 = biocidas con ácidos nucleicos aislados (el código del dsRNA en spray);
+    # A01N57/16 (fosforados heterocíclicos) no correspondía
+    cpc_any: ["A01N63/60", "C12N15/113", "C12N2310/14"]
     keyword_groups:  # AND entre grupos, OR dentro de cada grupo
       - ["dsRNA", "RNAi", "double-stranded RNA"]
       - ["plant", "crop", "pest", "spray"]
@@ -66,7 +77,11 @@ frentes:
   - id: agricultura_precision
     name: Agricultura de precisión y suelo
     rule: cpc
-    cpc_any: ["A01B79/005", "A01C21/007", "A01G25/16", "G01N33/24", "G06Q50/02"]
+    cpc_any: ["A01B79/005", "A01C21/007", "A01G25/16"]
+    cpc_qualified:
+      # análisis de suelos y TI de agricultura incluyen minería: solo con contexto agrícola
+      - codes: ["G01N33/24", "G06Q50/02"]
+        with_any: ["A01B", "A01C", "A01G"]
     science:
       rule: topic+keyword  # el topic incluye ganadería y visión por computador genérica
       topics:

@@ -1,9 +1,9 @@
 # Dominio piloto. Los símbolos CPC tienen formato válido; su existencia y alcance
-# se validan contra el esquema CPC 2026.08 en el spike F0-g.
+# están validados contra el esquema CPC 2026.08 (ADR F0-g); cada código incluye sus subgrupos.
 # Bloque `science`: topics de OpenAlex resueltos en el spike F0-c (2026-10-19).
 domain: agua
 name: Tecnologías del agua
-version: "0.2"
+version: "0.3"
 thesis: >
   Regulación de contaminantes emergentes (PFAS), escasez hídrica y reutilización
   industrial (semiconductores, data centers) empujan tratamiento avanzado y
@@ -24,10 +24,11 @@ frentes:
   - id: desalinizacion_membranas
     name: Desalinización y membranas
     rule: cpc
-    cpc_any: ["C02F1/441", "C02F1/442", "C02F1/444", "C02F1/445", "C02F1/469",
-              "B01D61/02", "B01D61/025", "B01D61/027", "B01D61/14", "B01D61/36",
-              "B01D69", "B01D71"]
-    cpc_combined_with: ["C02F2103/08"]  # agua de mar; opcional, sube la precisión
+    cpc_any: ["C02F1/44", "C02F1/469"]  # tratamiento de agua por membranas/electrodiálisis
+    cpc_qualified:
+      # membranas genéricas (gases, alimentos, biofármacos) solo con tratamiento de agua
+      - codes: ["B01D61/02", "B01D61/14", "B01D61/36", "B01D69", "B01D71"]
+        with_any: ["C02F"]
     science:
       rule: topic+keyword  # el topic incluye membranas para alimentos y bioprocesos
       topics:
@@ -39,7 +40,7 @@ frentes:
   - id: agua_atmosferica
     name: Captación de agua atmosférica
     rule: cpc|keyword
-    cpc_any: ["E03B3/28", "B01D5/0039", "B01D53/26"]
+    cpc_any: ["E03B3/28"]  # agua desde aire húmedo; B01D53/26 (secado de gases) era demasiado amplio
     # "metal-organic framework" solo sería demasiado amplio (MOFs para gases, catálisis)
     keywords_any: ["atmospheric water", "water harvesting", "water from air"]
     science:
@@ -50,7 +51,9 @@ frentes:
   - id: reutilizacion_avanzada
     name: Reutilización y oxidación avanzada
     rule: cpc
-    cpc_any: ["C02F1/72", "C02F1/78", "C02F1/32", "C02F2101/30", "C02F2103/34"]
+    # oxidación (incluye ozono C02F1/78, peróxidos C02F1/722, catalítica C02F1/725) y UV;
+    # se quitaron los índices genéricos C02F2101/30 y C02F2103/34 (cualquier tratamiento)
+    cpc_any: ["C02F1/72", "C02F1/32"]
     science:
       rule: topic+keyword  # T11781 incluye saneamiento rural y estudios sociales
       topics:
@@ -62,8 +65,13 @@ frentes:
   - id: redes_inteligentes
     name: Monitoreo y redes inteligentes de agua
     rule: cpc|keyword
-    cpc_any: ["E03B7/07", "E03B7/071", "G01M3/28", "G01N33/18"]
-    keywords_any: ["leak detection", "water network", "smart water"]
+    cpc_any: ["E03B7/07", "G01N33/18"]
+    cpc_qualified:
+      # detección de fugas en tuberías solo en redes de agua o alcantarillado (no gas ni cables)
+      - codes: ["G01M3/28"]
+        with_any: ["E03B", "E03F"]
+    # "leak detection" a secas trae fugas de gas: se exige contexto de agua
+    keywords_any: ["water leak", "water network", "smart water", "water distribution network"]
     science:
       rule: topic+keyword  # los topics incluyen hidroeléctricas y acuicultura
       topics:

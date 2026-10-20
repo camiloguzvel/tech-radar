@@ -25,6 +25,15 @@ ADR F0-c (`docs/decisions/F0-c-openalex.md`): los topics de OpenAlex son demasia
 frente tiene un bloque `science` (`topic`, `topic+keyword` o `keyword`) que reemplaza a
 `openalex_topics` del §5. Las métricas científicas se normalizan por el total anual de OpenAlex.
 
+ADR F0-g (`docs/decisions/F0-g-cpc.md`): las 52 referencias CPC son válidas en 2026.08; se corrigieron
+7 códigos mal elegidos o demasiado amplios. Nuevo campo `cpc_qualified` (código + contexto), y la
+expansión de cada código sigue la jerarquía oficial, no el prefijo de texto.
+
+ADR F0-f (`docs/decisions/F0-f-denominador-patentes.md`): el crecimiento de patentes se normaliza
+contra el **campo padre** de la misma fuente OPS (p. ej. PFAS frente a todo `C02F`). WIPO y OECD solo
+sirven para la especialización por país (RTA) en años completos (≤2021–2022), porque llegan con mucho
+rezago y no se pueden extender sin inventar datos.
+
 ---
 
 ## Context
