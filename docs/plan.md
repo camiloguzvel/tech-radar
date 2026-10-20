@@ -34,6 +34,14 @@ contra el **campo padre** de la misma fuente OPS (p. ej. PFAS frente a todo `C02
 sirven para la especialización por país (RTA) en años completos (≤2021–2022), porque llegan con mucho
 rezago y no se pueden extender sin inventar datos.
 
+ADR F0-a (`docs/decisions/F0-a-volumen-ops.md`) y F0-e (`docs/decisions/F0-e-ingles-cjk.md`):
+- OPS se consulta con `cl` (CPC ∪ IPC), porque solo con CPC se pierde la mitad o más de los
+  documentos CN/JP, y en proporción variable.
+- Backfill de frentes ≈ 3,6 GB (1–2 semanas de cuota). Los campos padre se resuelven con
+  conteos, así que **BigQuery (F0-b) se descarta**.
+- CN y KR traen 100% de título y resumen en inglés; JP, 52%. Solo hay que traducir una parte de
+  los documentos JP.
+
 ---
 
 ## Context

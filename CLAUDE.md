@@ -33,6 +33,11 @@ No medir "cuánta tecnología hay". Plan completo y decisiones: `docs/plan.md`; 
 - CPC (ADR F0-g): leer el título oficial antes de añadir un código; cada código incluye sus subgrupos por
   jerarquía (`CpcScheme.expand`), nunca por prefijo de texto; los códigos amplios van en `cpc_qualified`
   con un contexto. `radar validate` verifica la existencia si `data/ref/cpc-202608/` está descargado.
+- EPO OPS (ADR F0-a): usar `radar.connectors.epo_ops` (`OpsClient`, `frente_cql`). Buscar con `cl` (CPC ∪ IPC),
+  nunca solo `cpc`; JSON, no XML; respetar `X-Throttling-Control` (puede ser 0) y no esperar nunca más de 120 s;
+  en CQL `and`/`or` tienen igual precedencia: paréntesis explícitos. Frentes: descarga completa; campos padre:
+  solo conteos. Correr scripts largos con `python -u` y registro por llamada.
+- Texto en inglés (ADR F0-e): DOCDB primero (CN/KR 100%, JP 52%); traducir con Claude solo lo que falte.
 
 ## Reglas para LLM
 - Usar LLM solo para: casos frontera de clasificación, traducción residual, nombres de clusters, borradores de memo.

@@ -1,7 +1,7 @@
 # ADR F0-f — Denominador para normalizar los conteos de patentes
 
 - **Fecha:** 2026-10-19
-- **Estado:** aceptada (la parte de "campo padre" depende del spike F0-a)
+- **Estado:** aceptada. El campo padre se resolvió en F0-a con **conteos mensuales de documentos**, no con descarga.
 - **Método:** investigación en fuentes oficiales, con consultas en vivo a WIPO IPSDC y OECD SDMX.
 
 ## Pregunta
