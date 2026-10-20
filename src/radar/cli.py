@@ -53,5 +53,95 @@ def validate(
     typer.echo("OK")
 
 
+openalex_app = typer.Typer(no_args_is_help=True, help="Ciencia: ingesta y staging de OpenAlex.")
+app.add_typer(openalex_app, name="openalex")
+
+DOMAINS_OPT = typer.Option("agua,agrobiotech", help="Dominios separados por coma.")
+
+
+def _select_domains(names: str):
+    domains = load_domains()
+    wanted = [n.strip() for n in names.split(",") if n.strip()]
+    missing = [n for n in wanted if n not in domains]
+    if missing:
+        raise typer.BadParameter(f"dominios desconocidos: {missing}")
+    return [domains[n] for n in wanted]
+
+
+@openalex_app.command("ingest")
+def openalex_ingest(
+    domains: str = DOMAINS_OPT,
+    since: int = typer.Option(2014, help="Primer año a bajar."),
+    refresh_recent: int = typer.Option(2, help="Años recientes que se vuelven a bajar."),
+    totals: bool = typer.Option(True, help="Bajar también los totales (denominador)."),
+) -> None:
+    """Baja works por frente × año a data/raw (reanudable; frena en US$0,80/día)."""
+    from radar.connectors.openalex import BudgetExhausted, OpenAlexClient
+    from radar.core import runlog
+    from radar.ingest.openalex_works import ingest_totals, ingest_works
+
+    client = OpenAlexClient.from_env()
+    run_id = runlog.new_run_id("openalex")
+    report = ingest_works(client, _select_domains(domains), run_id, since, refresh_recent)
+    if totals and not report.budget_exhausted:
+        try:
+            ingest_totals(client, run_id)
+        except BudgetExhausted as exc:
+            report.budget_exhausted = True
+            typer.echo(f"totales pendientes: {exc}")
+    runlog.append("openalex_calls", [{"run_id": run_id, **c} for c in client.calls])
+    runlog.append("openalex_runs", [report.__dict__ | {"spent_today_usd": client.spent_today_usd}])
+    typer.echo(
+        f"{run_id}: {len(report.done)} particiones bajadas, {len(report.skipped)} ya estaban, "
+        f"{len(report.errors)} con error, {len(report.pending)} pendientes; "
+        f"gastado hoy US${client.spent_today_usd:.3f}"
+    )
+    if report.budget_exhausted:
+        typer.echo("Freno de presupuesto: vuelve a correr el comando después de medianoche UTC.")
+
+
+@openalex_app.command("build")
+def openalex_build(
+    domains: str = DOMAINS_OPT,
+    fetch_institutions: bool = typer.Option(True, help="Bajar geo de instituciones nuevas."),
+) -> None:
+    """Construye data/staging/openalex/*.parquet desde la última corrida completa."""
+    from radar.connectors.openalex import BudgetExhausted, OpenAlexClient
+    from radar.core import runlog
+    from radar.ingest.openalex_works import ingest_institutions
+    from radar.staging import openalex as st
+
+    works, members, auths = st.build_works(_select_domains(domains))
+    for df, name in ((works, "works"), (members, "work_frente"), (auths, "authorships")):
+        typer.echo(f"{name}: {df.height} filas -> {st.write(df, name)}")
+    if fetch_institutions:
+        client = OpenAlexClient.from_env()
+        ids = auths["institution_id"].drop_nulls().unique().to_list()
+        try:
+            ingest_institutions(client, ids, runlog.new_run_id("openalex-inst"))
+        except BudgetExhausted as exc:
+            typer.echo(f"instituciones pendientes (freno de presupuesto): {exc}")
+        runlog.append("openalex_calls", client.calls)
+    institutions = st.build_institutions(load_hubs().hubs)
+    if not institutions.is_empty():
+        typer.echo(
+            f"institutions: {institutions.height} filas -> {st.write(institutions, 'institutions')}"
+        )
+    try:
+        years, country_years = st.build_totals()
+        st.write(years, "totals_year")
+        st.write(country_years, "totals_country_year")
+        typer.echo(f"totals: {years.height} años, {country_years.height} país×año")
+    except FileNotFoundError as exc:
+        typer.echo(f"totales: {exc}")
+
+
+@openalex_app.command("run")
+def openalex_run(domains: str = DOMAINS_OPT) -> None:
+    """Ingesta + build."""
+    openalex_ingest(domains=domains, since=2014, refresh_recent=2, totals=True)
+    openalex_build(domains=domains, fetch_institutions=True)
+
+
 if __name__ == "__main__":
     app()
