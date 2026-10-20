@@ -40,15 +40,56 @@ class TopicRef(_Model):
     id: str | None = Field(default=None, pattern=r"^T\d+$")
 
 
-class Frente(_Model):
+class KeywordSpec(_Model):
+    """Keywords: alguna de `keywords_any`, o bien cada grupo de `keyword_groups`
+    con al menos una coincidencia (AND entre grupos, OR dentro de cada grupo)."""
+
+    keywords_any: list[str] = Field(default_factory=list)
+    keyword_groups: list[list[str]] = Field(default_factory=list)
+
+    @property
+    def has_keywords(self) -> bool:
+        return bool(self.keywords_any or self.keyword_groups)
+
+    @model_validator(mode="after")
+    def _no_empty_groups(self) -> KeywordSpec:
+        if self.keywords_any and self.keyword_groups:
+            raise ValueError("usar keywords_any o keyword_groups, no ambos")
+        if any(not group for group in self.keyword_groups):
+            raise ValueError("keyword_groups no admite grupos vacíos")
+        return self
+
+
+class ScienceDef(KeywordSpec):
+    """Pertenencia de publicaciones (OpenAlex) a un frente (ADR F0-c).
+
+    - `topic`: `primary_topic` en `topics` (topic específico del frente).
+    - `topic+keyword`: topic Y keywords en título/resumen (topic más amplio que el frente).
+    - `keyword`: solo keywords en título/resumen (no existe topic adecuado).
+    """
+
+    rule: Literal["topic", "topic+keyword", "keyword"]
+    topics: list[TopicRef] = Field(default_factory=list, max_length=100)
+
+    @model_validator(mode="after")
+    def _rule_has_inputs(self) -> ScienceDef:
+        if self.rule != "keyword" and not self.topics:
+            raise ValueError(f"la regla científica {self.rule!r} requiere topics")
+        if self.rule != "topic" and not self.has_keywords:
+            raise ValueError(f"la regla científica {self.rule!r} requiere keywords")
+        if self.rule == "keyword" and self.topics:
+            raise ValueError("la regla científica 'keyword' no usa topics")
+        return self
+
+
+class Frente(KeywordSpec):
     """Unidad de detección de señales.
 
-    Regla de pertenencia:
+    Pertenencia de patentes (keywords heredadas de `KeywordSpec`):
     - `cpc`: alguna clase de `cpc_any`.
     - `cpc+keyword`: alguna clase de `cpc_any` Y coincidencia de keywords.
     - `cpc|keyword`: alguna clase de `cpc_any` O coincidencia de keywords.
-    Keywords: alguna de `keywords_any`, o bien cada grupo de `keyword_groups`
-    con al menos una coincidencia (AND entre grupos, OR dentro de cada grupo).
+    Pertenencia de publicaciones: bloque `science` (ver `ScienceDef`).
     """
 
     id: str = Field(pattern=SLUG_PATTERN)
@@ -56,13 +97,7 @@ class Frente(_Model):
     rule: Literal["cpc", "cpc+keyword", "cpc|keyword"]
     cpc_any: list[CpcCode] = Field(default_factory=list)
     cpc_combined_with: list[CpcCode] = Field(default_factory=list)
-    keywords_any: list[str] = Field(default_factory=list)
-    keyword_groups: list[list[str]] = Field(default_factory=list)
-    openalex_topics: list[TopicRef] = Field(default_factory=list)
-
-    @property
-    def has_keywords(self) -> bool:
-        return bool(self.keywords_any or self.keyword_groups)
+    science: ScienceDef
 
     @model_validator(mode="after")
     def _rule_has_inputs(self) -> Frente:
@@ -70,8 +105,6 @@ class Frente(_Model):
             raise ValueError(f"frente {self.id}: la regla {self.rule!r} requiere cpc_any")
         if self.rule != "cpc" and not self.has_keywords:
             raise ValueError(f"frente {self.id}: la regla {self.rule!r} requiere keywords")
-        if any(not group for group in self.keyword_groups):
-            raise ValueError(f"frente {self.id}: keyword_groups no admite grupos vacíos")
         return self
 
 
@@ -100,7 +133,7 @@ class Domain(_Model):
         return self
 
     def unresolved_topics(self) -> list[tuple[str, str]]:
-        return [(f.id, t.name) for f in self.frentes for t in f.openalex_topics if t.id is None]
+        return [(f.id, t.name) for f in self.frentes for t in f.science.topics if t.id is None]
 
 
 class HubCenter(_Model):

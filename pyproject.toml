@@ -5,7 +5,9 @@ description = "Radar tecnológico: detección de inflexiones en ciencia y patent
 readme = "CLAUDE.md"
 requires-python = ">=3.12"
 dependencies = [
+    "httpx>=0.28.1",
     "pydantic>=2.8",
+    "python-dotenv>=1.2.4",
     "pyyaml>=6.0",
     "typer>=0.12",
 ]

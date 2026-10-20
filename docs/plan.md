@@ -21,6 +21,10 @@ Respuestas a las preguntas abiertas de §12:
 
 ADR F0-d (`docs/decisions/F0-d-claude-cli.md`): el backend LLM usa `--tools ""`, no `--disallowedTools "*"`.
 
+ADR F0-c (`docs/decisions/F0-c-openalex.md`): los topics de OpenAlex son demasiado gruesos. Cada
+frente tiene un bloque `science` (`topic`, `topic+keyword` o `keyword`) que reemplaza a
+`openalex_topics` del §5. Las métricas científicas se normalizan por el total anual de OpenAlex.
+
 ---
 
 ## Context

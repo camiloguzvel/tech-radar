@@ -1,9 +1,9 @@
-# Dominio piloto. Los símbolos CPC tienen formato válido pero su existencia y alcance
-# se validan contra el esquema CPC 2026.08 en el spike F0 (docs/decisions/).
-# Los topics de OpenAlex son nombres candidatos: el id se resuelve en el spike F0-c.
+# Dominio piloto. Los símbolos CPC tienen formato válido; su existencia y alcance
+# se validan contra el esquema CPC 2026.08 en el spike F0-g.
+# Bloque `science`: topics de OpenAlex resueltos en el spike F0-c (2026-10-19).
 domain: agua
 name: Tecnologías del agua
-version: "0.1"
+version: "0.2"
 thesis: >
   Regulación de contaminantes emergentes (PFAS), escasez hídrica y reutilización
   industrial (semiconductores, data centers) empujan tratamiento avanzado y
@@ -15,8 +15,11 @@ frentes:
     rule: cpc+keyword  # el CPC solo es demasiado amplio
     cpc_any: ["C02F1/28", "C02F1/44", "C02F1/461", "C02F1/72", "B01J20", "A62D3"]
     keywords_any: ["PFAS", "perfluoro", "polyfluoro", "PFOA", "PFOS"]
-    openalex_topics:
-      - name: Per- and polyfluoroalkyl substances research
+    science:
+      rule: topic+keyword  # el topic incluye toxicología y exposición, no solo remoción
+      topics:
+        - {id: T11869, name: Per- and polyfluoroalkyl substances research}
+      keywords_any: [removal, degradation, destruction, treatment, adsorption, remediation]
 
   - id: desalinizacion_membranas
     name: Desalinización y membranas
@@ -25,30 +28,50 @@ frentes:
               "B01D61/02", "B01D61/025", "B01D61/027", "B01D61/14", "B01D61/36",
               "B01D69", "B01D71"]
     cpc_combined_with: ["C02F2103/08"]  # agua de mar; opcional, sube la precisión
-    openalex_topics:
-      - name: Membrane Separation Technologies
-      - name: Membrane-based Ion Separation Techniques
+    science:
+      rule: topic+keyword  # el topic incluye membranas para alimentos y bioprocesos
+      topics:
+        - {id: T10197, name: Membrane Separation Technologies}
+        - {id: T12074, name: Membrane-based Ion Separation Techniques}
+      keywords_any: [desalination, seawater, brackish, "reverse osmosis", "forward osmosis",
+                     brine, "capacitive deionization", "drinking water", wastewater]
 
   - id: agua_atmosferica
     name: Captación de agua atmosférica
     rule: cpc|keyword
     cpc_any: ["E03B3/28", "B01D5/0039", "B01D53/26"]
-    keywords_any: ["atmospheric water", "water harvesting", "metal-organic framework"]
-    openalex_topics:
-      - name: Atmospheric water harvesting sorbents
+    # "metal-organic framework" solo sería demasiado amplio (MOFs para gases, catálisis)
+    keywords_any: ["atmospheric water", "water harvesting", "water from air"]
+    science:
+      rule: keyword  # no hay topic específico (el más cercano es purificación solar)
+      keywords_any: ["atmospheric water harvesting", "water harvesting from air",
+                     "atmospheric water generation", "fog harvesting"]
 
   - id: reutilizacion_avanzada
     name: Reutilización y oxidación avanzada
     rule: cpc
     cpc_any: ["C02F1/72", "C02F1/78", "C02F1/32", "C02F2101/30", "C02F2103/34"]
-    openalex_topics:
-      - name: Advanced oxidation water treatment
+    science:
+      rule: topic+keyword  # T11781 incluye saneamiento rural y estudios sociales
+      topics:
+        - {id: T10210, name: Advanced oxidation water treatment}
+        - {id: T11781, name: Wastewater Treatment and Reuse}
+      keywords_any: [reuse, reclaimed, reclamation, "advanced oxidation", ozonation,
+                     persulfate, peroxymonosulfate, photocatalytic, "Fenton"]
 
   - id: redes_inteligentes
     name: Monitoreo y redes inteligentes de agua
     rule: cpc|keyword
     cpc_any: ["E03B7/07", "E03B7/071", "G01M3/28", "G01N33/18"]
     keywords_any: ["leak detection", "water network", "smart water"]
+    science:
+      rule: topic+keyword  # los topics incluyen hidroeléctricas y acuicultura
+      topics:
+        - {id: T11220, name: Water Systems and Optimization}
+        - {id: T12697, name: Water Quality Monitoring Technologies}
+      keyword_groups:
+        - ["water distribution", "water supply", "water network", pipeline, pipe, "drinking water"]
+        - [leak, leakage, sensor, monitoring, smart, "digital twin", burst, "real-time"]
 
 exclude:
   cpc_only_if_alone: ["C02F2201", "C02F2209"]  # códigos auxiliares de indexación

@@ -26,6 +26,10 @@ No medir "cuánta tecnología hay". Plan completo y decisiones: `docs/plan.md`; 
 - Cambios en definiciones de dominio o en umbrales ⇒ subir `version`/`method_version` y re-ejecutar evals.
 - No commitear `data/`, `.env` ni datos crudos de OPS (licencia: no redistribuir).
 - Windows: abrir archivos con `encoding="utf-8"` explícito.
+- OpenAlex (ADR F0-c): filtros con `radar.connectors.openalex.works_filter` (≤100 valores OR,
+  `type:article|review|preprint`, `to_publication_date` = hoy); espaciar ≥1 s y reintentar el 429 con
+  backoff; métricas científicas sobre participación (frente / total anual), nunca conteos crudos.
+- Cambios a un bloque `science` se justifican con los sets etiquetados, no mirando series (evita sobreajuste).
 
 ## Reglas para LLM
 - Usar LLM solo para: casos frontera de clasificación, traducción residual, nombres de clusters, borradores de memo.

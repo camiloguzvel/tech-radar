@@ -1,8 +1,8 @@
 # Dominio piloto. Reemplaza "agricultura regenerativa" (práctica poco patentable).
-# CPC y topics pendientes de validación en el spike F0 (ver agua.yaml).
+# CPC pendiente de validar (spike F0-g). Topics resueltos en el spike F0-c (2026-10-19).
 domain: agrobiotech
 name: Agrobiotech y bioinsumos
-version: "0.1"
+version: "0.2"
 thesis: >
   Edición génica sin transgénesis (marcos regulatorios NGT), presión sobre
   agroquímicos y fertilizantes nitrogenados, y caída de costos de secuenciación
@@ -14,17 +14,27 @@ frentes:
     rule: cpc+keyword
     cpc_any: ["C12N15/82", "C12N15/8201", "C12N15/8213", "A01H1/00", "A01H1/06", "A01H6"]
     keywords_any: ["CRISPR", "Cas9", "Cas12", "base editing", "prime editing", "genome editing"]
-    openalex_topics:
-      - name: CRISPR and Genetic Engineering
-      - name: Plant genetic and mutation studies
+    science:
+      rule: topic+keyword  # el topic CRISPR incluye edición humana y animal
+      topics:
+        - {id: T10878, name: CRISPR and Genetic Engineering}
+        - {id: T12828, name: Plant Genetic and Mutation Studies}
+      keyword_groups:
+        - [CRISPR, "genome editing", "gene editing", "base editing", "prime editing"]
+        - [plant, crop, rice, wheat, maize, soybean, tomato]
 
   - id: biopesticidas
     name: Biocontrol y biopesticidas
     rule: cpc
     cpc_any: ["A01N63", "A01P"]
-    openalex_topics:
-      - name: Biological control of plant pathogens
-      - name: Entomopathogenic microorganisms in pest control
+    science:
+      # el topic incluye taxonomía de hongos; brecha: no hay topic para biocontrol de
+      # patógenos vegetales
+      rule: topic+keyword
+      topics:
+        - {id: T11436, name: Entomopathogenic Microorganisms in Pest Control}
+      keywords_any: [biocontrol, "biological control", biopesticide, bioinsecticide, pest,
+                     formulation, crop]
 
   - id: bioestimulantes_fijacion_n
     name: Bioestimulantes y fijación biológica de N
@@ -32,6 +42,13 @@ frentes:
     cpc_any: ["C05F11/08", "C05G3/60", "C12N1/20", "C12R2001"]
     keywords_any: ["biostimulant", "nitrogen-fixing", "plant growth-promoting", "PGPR",
                    "rhizobacteria"]
+    science:
+      rule: topic+keyword  # T10076 es amplio (inmunidad planta-microbio)
+      topics:
+        - {id: T12407, name: Plant Growth Enhancement Techniques}
+        - {id: T10076, name: Plant-Microbe Interactions and Immunity}
+      keywords_any: [biostimulant, "plant growth-promoting", PGPR, rhizobacteria,
+                     "nitrogen-fixing", biofertilizer, "nitrogen fixation"]
 
   - id: rnai_spray
     name: RNAi tópico (dsRNA)
@@ -40,11 +57,22 @@ frentes:
     keyword_groups:  # AND entre grupos, OR dentro de cada grupo
       - ["dsRNA", "RNAi", "double-stranded RNA"]
       - ["plant", "crop", "pest", "spray"]
+    science:
+      rule: keyword  # no hay topic específico
+      keyword_groups:
+        - [dsRNA, "double-stranded RNA"]
+        - [spray, topical, exogenous, SIGS, "crop protection", pest]
 
   - id: agricultura_precision
     name: Agricultura de precisión y suelo
     rule: cpc
     cpc_any: ["A01B79/005", "A01C21/007", "A01G25/16", "G01N33/24", "G06Q50/02"]
+    science:
+      rule: topic+keyword  # el topic incluye ganadería y visión por computador genérica
+      topics:
+        - {id: T10616, name: Smart Agriculture and AI}
+      keywords_any: ["precision agriculture", "precision farming", "variable rate", soil,
+                     fertilization, irrigation, "yield prediction", "crop monitoring"]
 
 lenses: [all, international]
 min_families_per_period: 30
