@@ -1,0 +1,418 @@
+<title>Radar Científico: Agua y Agrobiotech</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@87,500;87,650;87,750&family=Public+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: informe de comité en una columna (máx. 1120px): resumen → ranking → fichas en 2 columnas → lente NL → método */
+:root {
+  --bg: #f3f6f8;
+  --panel: #ffffff;
+  --fg: #13202a;
+  --muted: #566572;
+  --faint: #8494a0;
+  --rule: #dce3e8;
+  --grid: #e8edf1;
+  --agua: #2a78d6;
+  --agro: #1baf7a;
+  --chip: #e6edf2;
+  --focus: #2a78d6;
+  --font-display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e141a; --panel: #151d24; --fg: #e4ebf0; --muted: #9eabb6; --faint: #6f7d88;
+    --rule: #26313b; --grid: #1f2830; --agua: #3987e5; --agro: #199e70; --chip: #1f2a33;
+    --focus: #6aa6ee; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e141a; --panel: #151d24; --fg: #e4ebf0; --muted: #9eabb6; --faint: #6f7d88;
+  --rule: #26313b; --grid: #1f2830; --agua: #3987e5; --agro: #199e70; --chip: #1f2a33;
+  --focus: #6aa6ee; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font: 15px/1.55 var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 64px;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 40px; }
+h1, h2, h3 { font-family: var(--font-display); font-stretch: 87%; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: clamp(28px, 4.2vw, 42px); font-weight: 750; line-height: 1.05; }
+h2 { font-size: 22px; font-weight: 650; }
+h3 { font-size: 19px; font-weight: 650; line-height: 1.2; }
+p { margin: 0; max-width: 68ch; }
+a { color: inherit; text-underline-offset: 2px; text-decoration-color: var(--faint); }
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 3px; }
+.eyebrow { font: 500 11.5px/1.2 var(--font-data); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.num { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+section { display: grid; gap: 16px; }
+
+/* encabezado */
+header { display: grid; gap: 14px; }
+.notice { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { font: 500 12px/1 var(--font-data); padding: 6px 9px; border-radius: 999px; background: var(--chip); color: var(--muted); }
+.pill.warn { color: var(--fg); box-shadow: inset 0 0 0 1px var(--rule); background: transparent; }
+.lede { font-size: 16.5px; color: var(--muted); }
+
+/* hallazgos */
+.findings { display: grid; gap: 10px; padding: 0; margin: 0; list-style: none; }
+.findings li { display: grid; grid-template-columns: 20px 1fr; gap: 8px; max-width: 80ch; }
+.findings li::before { content: "→"; color: var(--faint); font-family: var(--font-data); }
+
+/* ranking */
+.table-scroll { overflow-x: auto; background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; }
+table { border-collapse: collapse; width: 100%; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+tr:last-child td { border-bottom: 0; }
+th { font: 500 11px/1.3 var(--font-data); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); white-space: nowrap; }
+td.r, th.r { text-align: right; }
+.rank td { white-space: nowrap; }
+.rank td.name { white-space: normal; min-width: 210px; }
+.rank a.jump { font-weight: 600; text-decoration: none; }
+.rank a.jump:hover { text-decoration: underline; }
+.dom { display: inline-flex; align-items: center; gap: 6px; font: 400 12px/1 var(--font-data); color: var(--muted); }
+.dom::before { content: ""; width: 9px; height: 9px; border-radius: 2px; background: var(--dc); }
+.dom.agua { --dc: var(--agua); }
+.dom.agrobiotech { --dc: var(--agro); }
+.accel { display: inline-flex; gap: 4px; align-items: baseline; }
+.accel .arrow { font-size: 11px; }
+.spark { display: block; }
+
+/* fichas */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr)); gap: 20px; }
+.card { background: var(--panel); border: 1px solid var(--rule); border-radius: 12px; padding: 20px; display: grid; gap: 16px; min-width: 0; scroll-margin-top: 16px; }
+.card-head { display: grid; gap: 6px; }
+.def { font: 400 12px/1.5 var(--font-data); color: var(--muted); overflow-wrap: anywhere; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.stat { display: grid; gap: 2px; }
+.stat .v { font: 500 20px/1.15 var(--font-data); font-variant-numeric: tabular-nums; }
+.stat .k { font-size: 12px; color: var(--muted); line-height: 1.3; }
+.chart { position: relative; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { fill: var(--muted); font: 400 10.5px var(--font-data); }
+.tip { position: absolute; pointer-events: none; background: var(--fg); color: var(--bg); font: 400 12px/1.4 var(--font-data); padding: 6px 8px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, -110%); }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 18px; }
+.block { display: grid; gap: 8px; min-width: 0; }
+.bars { display: grid; gap: 6px; }
+.bar-row { display: grid; grid-template-columns: minmax(0, 7.5em) 1fr auto; gap: 8px; align-items: center; font-size: 13px; }
+.bar-row .lbl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bar-track { height: 8px; background: var(--grid); border-radius: 0 4px 4px 0; overflow: hidden; }
+.bar-fill { height: 100%; background: var(--dc); border-radius: 0 4px 4px 0; }
+.bar-row .val { font: 400 12px var(--font-data); font-variant-numeric: tabular-nums; color: var(--muted); min-width: 8.5em; text-align: right; }
+.plain { list-style: none; padding: 0; margin: 0; display: grid; gap: 5px; font-size: 13.5px; }
+.plain li { display: flex; justify-content: space-between; gap: 10px; }
+.plain li span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.plain .n { font: 400 12px var(--font-data); color: var(--muted); white-space: nowrap; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips .pill { font-size: 11.5px; }
+.chips .pill.nl { color: var(--fg); box-shadow: inset 0 0 0 1px var(--dc); background: transparent; }
+.works { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; font-size: 13.5px; }
+.works li { display: grid; gap: 1px; }
+.works .meta { font: 400 11.5px var(--font-data); color: var(--muted); }
+details summary { cursor: pointer; font: 500 12px var(--font-data); color: var(--muted); }
+details table { margin-top: 8px; font-size: 12.5px; }
+details td, details th { padding: 4px 10px; }
+.method { display: grid; gap: 12px; font-size: 14px; }
+.method ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; max-width: 80ch; }
+@media (max-width: 560px) {
+  .stats { grid-template-columns: 1fr 1fr; }
+  .card { padding: 16px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card { transition: box-shadow .2s; }
+  .card:target { box-shadow: 0 0 0 2px var(--focus); }
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Radar tecnológico · vista previa · capa científica</div>
+    <h1>Radar Científico: Agua y Agrobiotech</h1>
+    <p class="lede" id="lede"></p>
+    <div class="notice">
+      <span class="pill warn">Preliminar: solo publicaciones, sin patentes</span>
+      <span class="pill warn">Sin señales calibradas ni acciones</span>
+      <span class="pill" id="pill-date"></span>
+      <span class="pill">Fuente: OpenAlex (CC0)</span>
+    </div>
+  </header>
+
+  <section aria-labelledby="h-find">
+    <h2 id="h-find">Qué muestran los datos</h2>
+    <ul class="findings" id="findings"></ul>
+  </section>
+
+  <section aria-labelledby="h-rank">
+    <h2 id="h-rank">Ranking de frentes por crecimiento</h2>
+    <p class="muted">Crecimiento de la participación de cada frente en todo lo que indexa OpenAlex (trabajos por millón), no de conteos crudos. La aceleración compara 2022–25 con 2019–22.</p>
+    <div class="table-scroll">
+      <table class="rank">
+        <thead><tr>
+          <th>Frente</th>
+          <th class="r">Trabajos 2025</th>
+          <th class="r">Crec. anual 2020–25</th>
+          <th class="r">2022–25 vs 2019–22</th>
+          <th>Por millón, 2014–2025</th>
+        </tr></thead>
+        <tbody id="rank-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-cards">
+    <h2 id="h-cards">Fichas por frente</h2>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <section aria-labelledby="h-nl">
+    <h2 id="h-nl">Lente Países Bajos y Eindhoven</h2>
+    <p class="muted">Participación fraccional de NL en 2025 y su cambio desde 2019. Trabajos 2023–25 con al menos una institución neerlandesa o del hub Brainport (radio de 25 km).</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr>
+          <th>Frente</th>
+          <th class="r">NL 2025</th>
+          <th class="r">Cambio vs 2019</th>
+          <th class="r">Trabajos NL 23–25</th>
+          <th class="r">Eindhoven 23–25</th>
+          <th>Institución NL principal</th>
+        </tr></thead>
+        <tbody id="nl-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-method" class="method">
+    <h2 id="h-method">Método y limitaciones</h2>
+    <ul>
+      <li><strong>Definición de cada frente:</strong> topics de OpenAlex combinados con palabras clave en título y resumen (ADR F0-c). Precisión aún sin medir con etiquetas: en las muestras revisadas, entre 6 y 8 de cada 8 trabajos son pertinentes. Algunos trabajos citados que aparecen abajo no pertenecen al frente; el etiquetado de F1 lo corregirá.</li>
+      <li><strong>Normalización:</strong> participación en el total anual de OpenAlex (artículos, revisiones y preprints). El total salta un 16% en 2025 por mayor cobertura, de forma pareja en todos los campos (Ciencias Ambientales +13%, Agrícolas +16%), así que normalizar por el total equivale aproximadamente a normalizar por campo.</li>
+      <li><strong>Años:</strong> todas las tasas usan años completos hasta 2025. 2026 aparece en las gráficas como año parcial (hasta octubre) y no entra en ningún cálculo.</li>
+      <li><strong>Países:</strong> conteo fraccional; cada trabajo suma 1 repartido entre los países de sus autores. <strong>Ciudades, hubs e instituciones:</strong> conteo entero (un trabajo cuenta para cada lugar con al menos un autor). La ubicación de una institución es su sede: un laboratorio de una empresa puede aparecer en la ciudad de su casa matriz.</li>
+      <li><strong>Hubs:</strong> los 12 hubs del brief, por radio alrededor de su centro. En estos frentes la ciencia china se concentra en Beijing, Nanjing y otras ciudades fuera de Shenzhen; la lista de ciudades principales lo muestra sin hubs predefinidos.</li>
+      <li><strong>Talento:</strong> autores con 2 o más trabajos del frente en 2023–25, y porcentaje de trabajos con al menos una afiliación de empresa.</li>
+      <li><strong>Qué falta:</strong> patentes (EPO), capital y regulación. Sin esas capas no hay señales de inversión: la página describe la ciencia, no recomienda acciones.</li>
+    </ul>
+    <p class="def" id="runs"></p>
+  </section>
+</div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(function () {
+  const D = JSON.parse(document.getElementById("data").textContent);
+  const F = D.frentes;
+  const nf = (d) => new Intl.NumberFormat("es", { maximumFractionDigits: d, minimumFractionDigits: d });
+  const int = new Intl.NumberFormat("es");
+  const pct = (x, d = 1) => x == null ? "—" : (x > 0 ? "+" : x < 0 ? "−" : "") + nf(d).format(Math.abs(x * 100)) + " %";
+  const pp = (x, d = 1) => x == null ? "—" : (x > 0 ? "+" : x < 0 ? "−" : "") + nf(d).format(Math.abs(x)) + " pp";
+  const share = (x) => nf(1).format(x * 100) + " %";
+  let region;
+  try { region = new Intl.DisplayNames(["es"], { type: "region" }); } catch (e) { region = null; }
+  const country = (c) => { if (!c) return "Sin país"; try { return region ? region.of(c) : c; } catch (e) { return c; } };
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+  const key = (g) => g.domain + "/" + g.frente;
+  const slug = (k) => k.replace("/", "--");
+  const domChip = (dom, name) => `<span class="dom ${dom}">${esc(name)}</span>`;
+  const growth = D.growth;
+  const CY = D.complete_year;
+
+  document.getElementById("pill-date").textContent = "Datos al " + D.generated_at + " · " + int.format(D.n_works) + " trabajos";
+  document.getElementById("lede").textContent =
+    "Cómo crece la investigación publicada en " + growth.length + " frentes de agua y agrobiotecnología desde 2014, dónde se hace y quién la hace. " +
+    "Es la primera de tres capas del radar; las patentes y el capital llegan después.";
+
+  // ---------- hallazgos (descriptivos, calculados) ----------
+  const top3 = growth.slice(0, 3).map((g) => F[key(g)].name + " (" + pct(g.cagr_5y) + ")");
+  const accel = growth.filter((g) => g.acceleration_pp > 0).map((g) => F[key(g)].name);
+  const leaders = {};
+  growth.forEach((g) => { const c = (D.countries[key(g)] || [])[0]; if (c) (leaders[c.country] = leaders[c.country] || []).push(F[key(g)].name); });
+  const leaderTxt = Object.entries(leaders).sort((a, b) => b[1].length - a[1].length)
+    .map(([c, l]) => country(c) + " lidera " + l.length + (l.length === 1 ? " frente" : " frentes")).join("; ");
+  const nlBest = growth.map((g) => [F[key(g)].name, D.netherlands[key(g)]]).filter((x) => x[1])
+    .sort((a, b) => b[1].share_end - a[1].share_end)[0];
+  const findings = [
+    "Los tres frentes que más ganan participación en 2020–25: " + top3.join(", ") + ".",
+    accel.length
+      ? "Solo " + accel.join(", ") + (accel.length === 1 ? " acelera" : " aceleran") + ": crece más rápido en 2022–25 que en 2019–22. El resto sigue creciendo, pero más despacio que antes."
+      : "Ningún frente acelera: todos crecen más despacio en 2022–25 que en 2019–22.",
+    "Por país (conteo fraccional, 2025): " + leaderTxt + ".",
+    nlBest ? "Mayor presencia neerlandesa: " + nlBest[0] + ", con " + share(nlBest[1].share_end) + " de los trabajos de 2025." : "",
+    "Agua atmosférica es el frente que más creció (×" + nf(1).format(growth.find((g) => g.frente === "agua_atmosferica")?.series.filter(s => s.year === CY)[0]?.works / Math.max(1, growth.find((g) => g.frente === "agua_atmosferica")?.series.filter(s => s.year === 2014)[0]?.works || 1)) + " en trabajos entre 2014 y 2025), pero sigue siendo pequeño.",
+  ].filter(Boolean);
+  document.getElementById("findings").innerHTML = findings.map((t) => `<li><span>${esc(t)}</span></li>`).join("");
+
+  // ---------- sparkline ----------
+  function spark(series, color) {
+    const s = series.filter((p) => p.year <= CY);
+    const W = 150, H = 34, P = 3;
+    const max = Math.max(...s.map((p) => p.per_million)), min = 0;
+    const x = (i) => P + (i * (W - 2 * P)) / Math.max(1, s.length - 1);
+    const y = (v) => H - P - ((v - min) / (max - min || 1)) * (H - 2 * P);
+    const pts = s.map((p, i) => [x(i), y(p.per_million)]);
+    const line = pts.map((p) => p.join(",")).join(" ");
+    const area = `M${pts[0][0]},${H - P} L${line.replace(/ /g, " L")} L${pts[pts.length - 1][0]},${H - P} Z`;
+    const last = pts[pts.length - 1];
+    return `<svg class="spark" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Tendencia 2014–${CY}">
+      <path d="${area}" fill="${color}" fill-opacity="0.12"></path>
+      <polyline points="${line}" fill="none" stroke="${color}" stroke-width="1.6" stroke-linejoin="round"></polyline>
+      <circle cx="${last[0]}" cy="${last[1]}" r="2.8" fill="${color}"></circle></svg>`;
+  }
+  const colorOf = (dom) => getComputedStyle(document.documentElement).getPropertyValue(dom === "agua" ? "--agua" : "--agro").trim();
+
+  // ---------- ranking ----------
+  function renderRank() {
+    document.getElementById("rank-body").innerHTML = growth.map((g) => {
+      const m = F[key(g)];
+      const a = g.acceleration_pp;
+      const arrow = a == null ? "" : a > 0 ? "▲" : "▼";
+      return `<tr>
+        <td class="name"><a class="jump" href="#${slug(key(g))}">${esc(m.name)}</a><br>${domChip(m.domain, m.domain_name)}</td>
+        <td class="r num">${int.format(g.works_end)}</td>
+        <td class="r num">${pct(g.cagr_5y)}</td>
+        <td class="r num"><span class="accel" title="2022–25: ${pct(g.cagr_recent_3y)} · 2019–22: ${pct(g.cagr_previous_3y)}"><span class="arrow" aria-hidden="true">${arrow}</span>${pp(a)}</span><br><span class="muted" style="font-size:11.5px">${pct(g.cagr_recent_3y)} vs ${pct(g.cagr_previous_3y)}</span></td>
+        <td>${spark(g.series, colorOf(m.domain))}</td></tr>`;
+    }).join("");
+  }
+
+  // ---------- gráfico de ficha ----------
+  function chart(el, series, color) {
+    const W = 520, H = 190, L = 40, R = 14, T = 12, B = 26;
+    const max = Math.max(...series.map((p) => p.per_million));
+    const step = niceStep(max / 4);
+    const top = Math.ceil(max / step) * step;
+    const yrs = series.map((p) => p.year);
+    const x0 = yrs[0], x1 = yrs[yrs.length - 1];
+    const x = (yr) => L + ((yr - x0) * (W - L - R)) / Math.max(1, x1 - x0);
+    const y = (v) => T + (1 - v / top) * (H - T - B);
+    const full = series.filter((p) => p.year <= CY), part = series.filter((p) => p.year >= CY);
+    const path = (arr) => arr.map((p, i) => (i ? "L" : "M") + x(p.year) + "," + y(p.per_million)).join(" ");
+    let g = "";
+    for (let v = 0; v <= top + 1e-9; v += step) {
+      g += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--grid)" stroke-width="1"></line>`;
+      g += `<text x="${L - 6}" y="${y(v) + 3.5}" text-anchor="end">${nf(step < 1 ? 1 : 0).format(v)}</text>`;
+    }
+    yrs.forEach((yr) => { if ((yr - x0) % 2 === 0 || yr === x1) g += `<text x="${x(yr)}" y="${H - 8}" text-anchor="middle">${yr === x1 && yr > CY ? yr + "*" : yr}</text>`; });
+    const area = path(full) + ` L${x(full[full.length - 1].year)},${y(0)} L${x(full[0].year)},${y(0)} Z`;
+    g += `<path d="${area}" fill="${color}" fill-opacity="0.10"></path>`;
+    g += `<path d="${path(full)}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round"></path>`;
+    if (part.length > 1) g += `<path d="${path(part)}" fill="none" stroke="${color}" stroke-width="2" stroke-dasharray="3 4"></path>`;
+    const lastFull = full[full.length - 1];
+    g += `<circle cx="${x(lastFull.year)}" cy="${y(lastFull.per_million)}" r="4" fill="${color}" stroke="var(--panel)" stroke-width="2"></circle>`;
+    if (part.length > 1) { const p = part[part.length - 1]; g += `<circle cx="${x(p.year)}" cy="${y(p.per_million)}" r="3.5" fill="var(--panel)" stroke="${color}" stroke-width="2"></circle>`; }
+    g += `<line class="cross" x1="0" x2="0" y1="${T}" y2="${H - B}" stroke="var(--faint)" stroke-width="1" visibility="hidden"></line>`;
+    g += `<rect x="${L}" y="${T}" width="${W - L - R}" height="${H - T - B}" fill="transparent" class="hit"></rect>`;
+    el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Trabajos por millón indexados, ${x0}–${x1}">${g}</svg><div class="tip" hidden></div>`;
+    const svg = el.querySelector("svg"), tip = el.querySelector(".tip"), cross = el.querySelector(".cross");
+    const show = (evt) => {
+      const r = svg.getBoundingClientRect();
+      const sx = ((evt.clientX - r.left) / r.width) * W;
+      let best = series[0];
+      series.forEach((p) => { if (Math.abs(x(p.year) - sx) < Math.abs(x(best.year) - sx)) best = p; });
+      cross.setAttribute("x1", x(best.year)); cross.setAttribute("x2", x(best.year)); cross.setAttribute("visibility", "visible");
+      tip.hidden = false;
+      tip.innerHTML = `${best.year}${best.year > CY ? " (parcial)" : ""} · ${int.format(best.works)} trabajos<br>${nf(2).format(best.per_million)} por millón`;
+      tip.style.left = (x(best.year) / W) * r.width + "px";
+      tip.style.top = (y(best.per_million) / H) * r.height + "px";
+    };
+    const hide = () => { tip.hidden = true; cross.setAttribute("visibility", "hidden"); };
+    svg.addEventListener("pointermove", show);
+    svg.addEventListener("pointerleave", hide);
+  }
+  function niceStep(raw) {
+    const p = Math.pow(10, Math.floor(Math.log10(raw || 1)));
+    const n = raw / p;
+    return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * p;
+  }
+
+  // ---------- fichas ----------
+  function bars(rows, color) {
+    const max = Math.max(...rows.map((r) => r.v), 1e-9);
+    return `<div class="bars" style="--dc:${color}">${rows.map((r) => `
+      <div class="bar-row"><span class="lbl" title="${esc(r.label)}">${esc(r.label)}</span>
+        <span class="bar-track"><span class="bar-fill" style="display:block;width:${(r.v / max) * 100}%"></span></span>
+        <span class="val">${r.text}</span></div>`).join("")}</div>`;
+  }
+  function definition(m) {
+    const parts = [];
+    if (m.topics.length) parts.push("topics " + m.topics.map((t) => t.id).join(", "));
+    if (m.keywords && m.keywords.length) parts.push("palabras: " + m.keywords.join(" | "));
+    if (m.keyword_groups && m.keyword_groups.length) parts.push("palabras: " + m.keyword_groups.map((g) => "(" + g.join(" | ") + ")").join(" Y "));
+    return "regla " + m.rule + " · " + parts.join(" · ");
+  }
+  function renderCards() {
+    const host = document.getElementById("cards");
+    host.innerHTML = growth.map((g) => {
+      const k = key(g), m = F[k], color = colorOf(m.domain);
+      const geo = D.geography[k] || { hubs: [], cities: [], institutions: [], n_works: 0 };
+      const t = D.talent[k] || {};
+      const countries = (D.countries[k] || []).map((c) => ({ label: country(c.country), v: c.share_end, text: share(c.share_end) + " · " + pp(c.change_pp) }));
+      const cities = geo.cities.slice(0, 6).map((c) => `<li><span>${esc(c.city)}${c.country ? ` <span class="muted">· ${esc(country(c.country))}</span>` : ""}</span><span class="n">${int.format(c.works)} · ${share(c.share)}</span></li>`).join("");
+      const insts = geo.institutions.slice(0, 5).map((i) => `<li><span>${esc(i.name)}</span><span class="n">${int.format(i.works)}</span></li>`).join("");
+      const hubs = geo.hubs.length
+        ? geo.hubs.map((h) => `<span class="pill${h.hub === "eindhoven" ? " nl" : ""}">${esc(D.hubs[h.hub] || h.hub)} · ${int.format(h.works)}</span>`).join("")
+        : `<span class="muted">Ningún trabajo en los 12 hubs.</span>`;
+      const works = (D.top_works[k] || []).map((w) => `<li><a href="${esc(w.url)}" target="_blank" rel="noopener">${esc(w.title)}</a><span class="meta">${w.year} · ${int.format(w.cited_by)} citas</span></li>`).join("");
+      const rows = g.series.map((p) => `<tr><td class="num">${p.year}${p.year > CY ? "*" : ""}</td><td class="r num">${int.format(p.works)}</td><td class="r num">${nf(2).format(p.per_million)}</td></tr>`).join("");
+      return `<article class="card" id="${slug(k)}">
+        <div class="card-head">${domChip(m.domain, m.domain_name)}<h3>${esc(m.name)}</h3><div class="def">${esc(definition(m))}</div></div>
+        <div class="stats">
+          <div class="stat"><span class="v">${int.format(g.works_end)}</span><span class="k">trabajos en ${CY}</span></div>
+          <div class="stat"><span class="v">${pct(g.cagr_5y)}</span><span class="k">crecimiento anual de la participación 2020–25</span></div>
+          <div class="stat"><span class="v">${pp(g.acceleration_pp)}</span><span class="k">aceleración (2022–25 vs 2019–22)</span></div>
+        </div>
+        <div class="block"><div class="eyebrow">Trabajos por millón indexados en OpenAlex</div><div class="chart" data-key="${k}"></div></div>
+        <div class="two">
+          <div class="block"><div class="eyebrow">Países ${CY} · cambio vs 2019</div>${bars(countries, color)}</div>
+          <div class="block"><div class="eyebrow">Ciudades principales 2023–25</div><ul class="plain">${cities}</ul></div>
+        </div>
+        <div class="block"><div class="eyebrow">Hubs del brief · trabajos 2023–25 (de ${int.format(geo.n_works)})</div><div class="chips">${hubs}</div></div>
+        <div class="two">
+          <div class="block"><div class="eyebrow">Instituciones 2023–25</div><ul class="plain">${insts}</ul></div>
+          <div class="block"><div class="eyebrow">Talento 2023–25</div><ul class="plain">
+            <li><span>Autores distintos</span><span class="n">${int.format(t.authors || 0)}</span></li>
+            <li><span>Con 2 o más trabajos</span><span class="n">${share(t.repeat_share || 0)}</span></li>
+            <li><span>Trabajos con empresa</span><span class="n">${share(t.company_share || 0)}</span></li></ul></div>
+        </div>
+        <div class="block"><div class="eyebrow">Más citados 2024–25 (evidencia)</div><ul class="works">${works}</ul></div>
+        <details><summary>Ver datos anuales</summary><div class="table-scroll"><table>
+          <thead><tr><th>Año</th><th class="r">Trabajos</th><th class="r">Por millón</th></tr></thead><tbody>${rows}</tbody></table></div>
+          <p class="def" style="margin-top:6px">* año parcial</p></details>
+      </article>`;
+    }).join("");
+    host.querySelectorAll(".chart").forEach((el) => {
+      const g = growth.find((x) => key(x) === el.dataset.key);
+      chart(el, g.series, colorOf(F[el.dataset.key].domain));
+    });
+  }
+
+  // ---------- lente NL ----------
+  function renderNL() {
+    const rows = growth.map((g) => [g, D.netherlands[key(g)]]).filter((x) => x[1])
+      .sort((a, b) => b[1].share_end - a[1].share_end);
+    document.getElementById("nl-body").innerHTML = rows.map(([g, n]) => {
+      const m = F[key(g)];
+      const top = n.top_institution ? `${esc(n.top_institution.display_name)} <span class="muted num">(${int.format(n.top_institution.works)})</span>` : `<span class="muted">—</span>`;
+      return `<tr><td>${esc(m.name)}<br>${domChip(m.domain, m.domain_name)}</td>
+        <td class="r num">${share(n.share_end)}</td><td class="r num">${pp(n.change_pp, 2)}</td>
+        <td class="r num">${int.format(n.nl_works)}</td><td class="r num">${int.format(n.eindhoven_works)}</td><td>${top}</td></tr>`;
+    }).join("");
+  }
+
+  document.getElementById("runs").textContent =
+    "Corridas: " + D.run_ids.join(", ") + " · totales anuales: " + D.totals_year.map((t) => t.year + " " + int.format(t.works)).join(" · ");
+
+  function renderAll() { renderRank(); renderCards(); renderNL(); }
+  renderAll();
+  // Los colores del dominio cambian con el tema: volver a dibujar al cambiar.
+  try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", renderAll); } catch (e) {}
+  new MutationObserver(renderAll).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+})();
+</script>
