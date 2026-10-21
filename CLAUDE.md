@@ -41,6 +41,7 @@ No medir "cuánta tecnología hay". Plan completo y decisiones: `docs/plan.md`; 
   nunca solo `cpc`; JSON, no XML; respetar `X-Throttling-Control` (puede ser 0) y no esperar nunca más de 120 s;
   en CQL `and`/`or` tienen igual precedencia: paréntesis explícitos. Frentes: descarga completa; campos padre:
   solo conteos. Correr scripts largos con `python -u` y registro por llamada.
+  OPS envía `Retry-After` en **milisegundos**; hay cuota por hora (~450 MB) además de la semanal.
 - Texto en inglés (ADR F0-e): DOCDB primero (CN/KR 100%, JP 52%); traducir con Claude solo lo que falte.
 
 ## Reglas para LLM

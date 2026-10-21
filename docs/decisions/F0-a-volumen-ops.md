@@ -78,3 +78,20 @@ ruidoso (por ejemplo, `C02F` 2020-06 frente a 2025-06), porque las oficinas publ
 - Medir en F1, con los sets etiquetados, la pérdida de recall en CN/JP por los códigos
   exclusivos de CPC y decidir si se agregan equivalentes IPC (con la concordancia CPC↔IPC oficial).
 - Medir el tamaño real de las familias (documentos por familia) en el backfill.
+
+## Addendum 2026-10-21 — cuota por hora y `Retry-After` en milisegundos
+
+Durante la carga completa, OPS rechazó búsquedas con `403` y `Retry-After: 900000`. Era la
+**cuota por hora** (`X-IndividualQuotaPerHour-Used` ≈ 392 MB de ~450 MB), y el valor está en
+**milisegundos**: 900000 = 15 minutos, y bajaba ~61000 por cada minuto transcurrido. El cliente lo
+leía como segundos (10 días), marcaba el trimestre como error y pasaba al siguiente (15 errores
+seguidos). Después, un corte de conexión SSL (`UNEXPECTED_EOF_WHILE_READING`) tumbó el proceso,
+porque los errores de red no se reintentaban. Ningún trimestre con error quedó marcado como
+completo, así que se volvieron a bajar en la corrida siguiente.
+
+Correcciones en `OpsClient` (con tests en `tests/test_epo_client.py`):
+- `Retry-After` se interpreta en milisegundos; ante un 403 de cuota horaria se espera lo pedido,
+  con un tope acumulado de 30 min y registro en el log. Un rechazo de cuota semanal frena la
+  corrida (`QuotaExceeded`).
+- Pausa preventiva de 5 min cuando el contador horario supera 380 MB.
+- Los errores de red (`httpx.TransportError`) se reintentan con backoff.

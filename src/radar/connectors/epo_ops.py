@@ -15,6 +15,7 @@ from __future__ import annotations
 import os
 import re
 import time
+from collections.abc import Callable
 from dataclasses import dataclass, field
 
 import httpx
@@ -26,8 +27,13 @@ from radar.domains.loader import Frente, KeywordSpec
 AUTH_URL = "https://ops.epo.org/3.2/auth/accesstoken"
 BASE_URL = "https://ops.epo.org/3.2/rest-services"
 WEEKLY_QUOTA_STOP = int(3.5 * 1024**3)  # freno antes de los 4 GB gratuitos
+# Cuota por hora (~450 MB, ventana móvil). Al pasar este umbral se pausa ANTES de que OPS
+# rechace con 403 (incidente 2026-10-21, ADR F0-a).
+HOURLY_SOFT_LIMIT = 380 * 1024**2
+HOURLY_PAUSE_S = 300
 MAX_RESULTS_PER_QUERY = 2000  # tope de OPS para paginar una consulta
-MAX_WAIT_S = 120  # ninguna espera individual supera esto
+MAX_WAIT_S = 120  # espera máxima por ritmo o backoff
+MAX_QUOTA_WAIT_S = 1800  # espera máxima acumulada por cuota horaria (siempre registrada)
 HTTP_TIMEOUT = httpx.Timeout(60.0, connect=15.0)
 _THROTTLE = re.compile(r"(\w+)=(\w+):(\d+)")
 
@@ -40,16 +46,27 @@ class OpsError(RuntimeError):
     pass
 
 
+def retry_after_seconds(value: str | None) -> float | None:
+    """OPS envía Retry-After en MILISEGUNDOS (medido: 900000 = 15 min, baja ~61000 por minuto)."""
+    if not value or not value.strip().isdigit():
+        return None
+    return int(value) / 1000.0
+
+
 @dataclass
 class OpsClient:
     key: str
     secret: str
     log: list[dict] = field(default_factory=list)
     week_bytes_used: int = 0
+    hour_bytes_used: int = 0
     verbose: bool = False
+    transport: httpx.BaseTransport | None = None  # inyectable en tests
+    sleep: Callable[[float], None] = time.sleep
     _token: str | None = None
     _token_expiry: float = 0.0
     _next_call: dict[str, float] = field(default_factory=dict)
+    _http: httpx.Client | None = None
 
     @classmethod
     def from_env(cls) -> OpsClient:
@@ -59,13 +76,19 @@ class OpsClient:
             raise SystemExit("Faltan EPO_OPS_KEY / EPO_OPS_SECRET en .env")
         return cls(key, secret)
 
+    @property
+    def http(self) -> httpx.Client:
+        if self._http is None:
+            self._http = httpx.Client(timeout=HTTP_TIMEOUT, transport=self.transport)
+        return self._http
+
+    def _say(self, msg: str) -> None:
+        print(f"  [ops] {msg}", flush=True)
+
     def _auth(self) -> str:
         if self._token is None or time.monotonic() > self._token_expiry:
-            r = httpx.post(
-                AUTH_URL,
-                auth=(self.key, self.secret),
-                data={"grant_type": "client_credentials"},
-                timeout=HTTP_TIMEOUT,
+            r = self.http.post(
+                AUTH_URL, auth=(self.key, self.secret), data={"grant_type": "client_credentials"}
             )
             r.raise_for_status()
             body = r.json()
@@ -80,29 +103,57 @@ class OpsClient:
             gap = 60.0 if per_min == 0 else 60.0 / per_min + 0.25
             self._next_call[svc] = time.monotonic() + gap
 
+    def _track_quota(self, headers: httpx.Headers) -> None:
+        week = headers.get("x-registeredquotaperweek-used", "")
+        hour = headers.get("x-individualquotaperhour-used", "")
+        if week.isdigit():
+            self.week_bytes_used = int(week)
+        if hour.isdigit():
+            self.hour_bytes_used = int(hour)
+
     def get(self, path: str, service: str, params: dict, range_: str | None = None) -> dict:
         if self.week_bytes_used >= WEEKLY_QUOTA_STOP:
             raise QuotaExceeded(f"cuota semanal: {self.week_bytes_used} bytes usados")
+        if self.hour_bytes_used >= HOURLY_SOFT_LIMIT:
+            mb = self.hour_bytes_used / 1e6
+            self._say(f"cuota horaria {mb:.0f} MB: pausa de {HOURLY_PAUSE_S}s")
+            self.sleep(HOURLY_PAUSE_S)
+            self.hour_bytes_used = 0  # se vuelve a leer en la próxima respuesta
         headers = {"Accept": "application/json"}
         if range_:
             headers["Range"] = range_
-        for attempt, backoff in enumerate((0, 10, 30, 90)):
+        attempt, quota_waited = 0, 0.0
+        while attempt < 4:
+            backoff = (0, 10, 30, 90)[attempt]
             wait = max(backoff, self._next_call.get(service, 0) - time.monotonic(), 0)
-            time.sleep(min(wait, MAX_WAIT_S))
-            headers["Authorization"] = f"Bearer {self._auth()}"
+            if wait:
+                self.sleep(min(wait, MAX_WAIT_S))
             started = time.monotonic()
-            r = httpx.get(f"{BASE_URL}{path}", params=params, headers=headers, timeout=HTTP_TIMEOUT)
+            try:
+                headers["Authorization"] = f"Bearer {self._auth()}"
+                r = self.http.get(f"{BASE_URL}{path}", params=params, headers=headers)
+            except httpx.TransportError as exc:  # SSL EOF, conexión cortada, timeout
+                self.log.append(
+                    {
+                        "path": path,
+                        "params": params,
+                        "status": "transport",
+                        "error": str(exc)[:200],
+                        "attempt": attempt,
+                    }
+                )
+                self._say(f"error de red ({type(exc).__name__}); intento {attempt + 1}/4")
+                attempt += 1
+                continue
             if self.verbose:
-                print(
-                    f"  [{service}] {r.status_code} {len(r.content)}B "
+                self._say(
+                    f"[{service}] {r.status_code} {len(r.content)}B "
                     f"{time.monotonic() - started:.1f}s espera={wait:.0f}s "
-                    f"{(r.headers.get('x-throttling-control') or '')[:60]}",
-                    flush=True,
+                    f"{(r.headers.get('x-throttling-control') or '')[:60]}"
                 )
             self._pace(service, r.headers)
-            used = r.headers.get("x-registeredquotaperweek-used")
-            if used:
-                self.week_bytes_used = int(used)
+            self._track_quota(r.headers)
+            reason = r.headers.get("x-rejection-reason", "")
             self.log.append(
                 {
                     "path": path,
@@ -110,6 +161,7 @@ class OpsClient:
                     "status": r.status_code,
                     "bytes": len(r.content),
                     "throttling": r.headers.get("x-throttling-control"),
+                    "rejection": reason or None,
                     "attempt": attempt,
                 }
             )
@@ -117,13 +169,22 @@ class OpsClient:
                 return r.json()
             if r.status_code == 404:  # OPS responde 404 cuando no hay resultados
                 return {}
+            if r.status_code == 403 and "week" in reason.lower():
+                raise QuotaExceeded(f"cuota semanal rechazada por OPS: {reason}")
+            ra = retry_after_seconds(r.headers.get("retry-after"))
+            if r.status_code == 403 and ra is not None:
+                # cuota por hora: se espera lo que pide OPS, con tope acumulado y registro
+                if quota_waited + ra > MAX_QUOTA_WAIT_S:
+                    raise OpsError(
+                        f"403 cuota horaria: Retry-After {ra:.0f}s excede el tope ({path})"
+                    )
+                self._say(f"403 cuota horaria ({reason or 'sin motivo'}): espero {ra:.0f}s")
+                self.sleep(ra + 1)
+                quota_waited += ra
+                continue  # no consume un intento
             # 500 SERVER.DomainAccess ("try again later") aparece con consultas pesadas
-            if r.status_code in (403, 429, 500, 503) and attempt < 3:
-                retry_after = r.headers.get("retry-after")
-                if retry_after and retry_after.isdigit():
-                    if int(retry_after) > MAX_WAIT_S:  # nunca bloquear horas: fallar y registrar
-                        raise OpsError(f"{r.status_code} con Retry-After={retry_after}s: {path}")
-                    time.sleep(int(retry_after))
+            if r.status_code in (403, 429, 500, 503):
+                attempt += 1
                 continue
             raise OpsError(f"{r.status_code} {path} {params}: {r.text[:300]}")
         raise OpsError(f"reintentos agotados: {path} {params}")
