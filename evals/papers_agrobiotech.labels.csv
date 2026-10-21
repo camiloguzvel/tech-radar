@@ -1,0 +1,53 @@
+n,pertenece,frente_correcto,justificacion,frente,labeler,prompt_version,labeled_at
+1,si,,"Evalúa cómo afectan los nematicidas químicos a la supervivencia e infectividad de nematodos entomopatógenos usados en biocontrol, es decir, si ambos son compatibles.",biopesticidas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+2,si,,Optimiza el medio de cultivo para producir el biopesticida Bacillus thuringiensis var. tenebrionis.,biopesticidas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+3,si,,El título describe un método con CRISPR/Cas9 en arroz para separar genes ligados.,edicion_genica_vegetal,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+4,si,,Caracteriza el crecimiento y la virulencia de aislados de hongos entomopatógenos como posibles agentes de biocontrol.,biopesticidas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+5,si,,Mide la eficacia de una cepa comercial de Beauveria bassiana contra el pulgón amarillo de la caña de azúcar.,biopesticidas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+6,dudoso,,"Trata sobre todo de la biología de la activación de S. scapterisci, aunque propone un método de producción de juveniles infectivos. Nota: no tiene ensayo de control de plagas.",biopesticidas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+7,si,,Evalúa nanopartículas de quitosano para entregar dsRNA exógeno como control de plagas; el modelo C. elegans es solo una herramienta de prueba.,rnai_spray,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+8,si,,Estudia cómo un endófito promotor del crecimiento (Acidovorax radicis) actúa sobre la cebada a través de la señal AHL; trata la interacción PGPR-cultivo.,bioestimulantes_fijacion_n,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+9,no,ninguno,"Silenciamiento con small RNAs artificiales expresados por un vector viral (VIGS) dentro de la planta, como herramienta de silenciamiento, no aplicación tópica de dsRNA; nota: el límite entre VIGS y RNAi exógeno podría aclararse en la definición.",rnai_spray,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+10,dudoso,,"Aísla y caracteriza cepas de Bt de forma bioquímica y serológica, sin bioensayos; el uso en biocontrol solo se discute.",biopesticidas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+11,si,,Inocula rizobios con rasgos promotores del crecimiento para dar tolerancia a la sequía en trigo; es un bioestimulante microbiano.,bioestimulantes_fijacion_n,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+12,no,otro_dominio,Inmunología antiviral en células humanas; el dsRNA aparece solo como señal de infección.,rnai_spray,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+13,si,,"Estudia cómo la actividad de agua y la temperatura afectan el crecimiento y la esporulación de cepas entomopatógenas, lo que sirve para seleccionarlas como agentes de biocontrol.",biopesticidas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+14,dudoso,,"Usa hongos entomopatógenos como endófitos, pero mide su efecto en el crecimiento y rendimiento de la soya, no en el control de plagas. Nota: podría encajar en bioestimulantes.",biopesticidas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+15,si,,El título indica que evalúa la eficacia de Metarhizium anisopliae para controlar el vector de la marchitez letal de la palma de aceite.,biopesticidas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+16,si,,Evalúa rizobacterias nativas como biofertilizante en el crecimiento del pachuli (nilam).,bioestimulantes_fijacion_n,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+17,no,otro_dominio,"Usa dsRNA en peces solo para estudiar la función de un gen, sin relación con cultivos.",rnai_spray,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+18,si,,Prueba en campo la eficacia de aislados de Beauveria bassiana contra la broca del café.,biopesticidas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+19,si,,"Aunque no tiene resumen, el título indica de forma explícita que se aplica dsRNA exógeno para inducir resistencia a virus.",rnai_spray,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+20,si,,"Caracteriza Ledprona, el primer biopesticida de dsRNA en spray, contra el escarabajo de la papa.",rnai_spray,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+21,si,,Analiza la mortalidad de Spodoptera littoralis al alimentarse de plantas colonizadas por Metarhizium brunneum aplicado por vía foliar.,biopesticidas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+22,si,,Selecciona dsRNA exógenos como estrategia de protección contra el gorgojo de la batata; nota: la selección inicial se hizo por inyección y el resumen cortado no muestra la vía de aplicación en campo.,rnai_spray,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+23,si,,"Prueba microbios beneficiosos, entre ellos diazótrofos, y extracto de Ascophyllum para aumentar la biomasa de Miscanthus.",bioestimulantes_fijacion_n,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+24,si,,Construye vectores CRISPR/Cas9 con promotores U6 propios para editar el genoma del ricino.,edicion_genica_vegetal,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+25,dudoso,,"Herramienta para analizar mutantes CRISPR, pero el título no dice el organismo y no hay resumen.",edicion_genica_vegetal,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+26,no,otro_dominio,"Revisión de nucleasas TnpB sin foco vegetal; el uso que destaca es la entrega con AAV, propia de terapia humana.",edicion_genica_vegetal,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+27,dudoso,,Usa la PGPB Azospirillum para restaurar vegetación en relaves mineros; la planta no es un cultivo y el fin es fitorremediación. Nota: falta aclarar si los usos no agrícolas cuentan.,bioestimulantes_fijacion_n,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+28,si,,"Evalúa inoculantes de rizobacterias (Azotobacter, Pseudomonas) en la producción de pastos forrajeros.",bioestimulantes_fijacion_n,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+29,si,,Modificación dirigida con Cas9 en protoplastos de una variedad de cebada siberiana.,edicion_genica_vegetal,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+30,dudoso,,"Revisión donde la RNAi es uno de tres pilares de los biofungicidas, sin precisar si es tópica; también podría encajar en biopesticidas.",rnai_spray,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+31,si,,Usa el gen GBSSI para evaluar la edición génica y de bases en papa tetraploide.,edicion_genica_vegetal,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+32,dudoso,,Revisión general de interacciones planta-microbio en la que la biofertilización es solo una de varias aplicaciones; además el título no corresponde al contenido.,bioestimulantes_fijacion_n,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+33,no,biopesticidas,El foco es el biocontrol de hongos patógenos del tomate con Trichoderma; la promoción del crecimiento es secundaria.,bioestimulantes_fijacion_n,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+34,si,,Gene targeting en tabaco con SaCas9 y LbCas12a tolerante a la temperatura.,edicion_genica_vegetal,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+35,si,,"Revisión de SIGS (silenciamiento inducido por spray): dianas, producción y sistemas de entrega de dsRNA.",rnai_spray,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+36,dudoso,,Diseña SPO11 para inducir recombinación dirigida en arroz; el resumen truncado no aclara si usa CRISPR o TALEN.,edicion_genica_vegetal,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+37,dudoso,,"Plataforma para rastrear mutaciones CRISPR, pero el título no dice si es para plantas y no hay resumen.",edicion_genica_vegetal,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+38,no,ninguno,"Mutagénesis química con azida sódica en garbanzo: mejoramiento convencional, no edición génica.",edicion_genica_vegetal,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+39,no,otro_dominio,"Revisión de bacterias de la rizosfera centrada en biocombustibles, biorremediación y biofiltración, no en el efecto sobre el cultivo.",bioestimulantes_fijacion_n,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+40,si,,Evalúa si un preparado de silicio usado en cultivos es compatible con hongos entomopatógenos de biocontrol y cómo afecta su esporulación.,biopesticidas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+41,no,ninguno,"Prueba ácido giberélico y nanofertilizantes NPK, que son insumos químicos y quedan excluidos.",bioestimulantes_fijacion_n,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+42,si,,Revisión de dsRNA sintético exógeno para controlar plagas agrícolas.,rnai_spray,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+43,si,,El título indica que aplica conidios de Metarhizium rileyi con dron para controlar el gusano cogollero y el falso medidor en maíz y soya.,biopesticidas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+44,no,otro_dominio,Edición epigenética con CRISPR del gen MGMT en un contexto de cáncer humano.,edicion_genica_vegetal,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+45,no,otro_dominio,CRISPR en células humanas ARPE-19 para estudiar la degeneración macular.,edicion_genica_vegetal,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+46,si,,Ensayo de campo con PGPR más biochar para aliviar el estrés hídrico y salino en arroz.,bioestimulantes_fijacion_n,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+47,si,,Combina hongos micorrícicos arbusculares con vermicompost para mejorar el tomate bajo sequía; los HMA actúan como biofertilizante.,bioestimulantes_fijacion_n,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+48,no,ninguno,Usa líneas TOR RNAi en Arabidopsis solo para estudiar la función de un gen en la memoria térmica.,rnai_spray,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+49,si,,Trata la propiedad intelectual y el desarrollo de productos de edición génica en biotecnología vegetal.,edicion_genica_vegetal,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+50,no,otro_dominio,"Usa RNAi para estudiar la función de un gen inmune en la ostra perlera, no en cultivos.",rnai_spray,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+51,dudoso,,"Revisión sobre Azotobacter que cita su papel como biofertilizante, pero se centra en usos industriales (PHB, alginato, bioplásticos).",bioestimulantes_fijacion_n,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+52,si,,"El título indica de forma explícita dsRNA en spray para controlar Nilaparvata lugens, plaga del arroz.",rnai_spray,claude-opus,papers-v1,2026-10-21T12:11:07+00:00

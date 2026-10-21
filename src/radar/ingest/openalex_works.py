@@ -126,6 +126,20 @@ def ingest_partition(
     return manifest
 
 
+def _definition_changed(
+    run_dir: Path, domain: Domain, frente_id: str, year: int, today: date
+) -> bool:
+    """True si la definición del frente cambió desde esa descarga (se vuelve a bajar)."""
+    frente = next(f for f in domain.frentes if f.id == frente_id)
+    manifest = json.loads((run_dir / SUCCESS).read_text(encoding="utf-8"))
+    current = works_filter(
+        frente.science, since=date(year, 1, 1), until=min(date(year, 12, 31), today)
+    )
+    # el corte `to_publication_date` de años pasados no cambia; comparamos sin él
+    strip = lambda f: ",".join(p for p in f.split(",") if not p.startswith("to_publication_date"))  # noqa: E731
+    return strip(manifest["filter"]) != strip(current)
+
+
 def ingest_works(
     client: OpenAlexClient,
     domains: list[Domain],
@@ -142,7 +156,12 @@ def ingest_works(
         key = f"{domain.domain}/{frente_id}/{year}"
         parent = RAW_ROOT / "works" / domain.domain / frente_id / str(year)
         is_recent = year > today.year - refresh_recent_years
-        if latest_complete(parent) is not None and not is_recent:
+        done = latest_complete(parent)
+        if (
+            done is not None
+            and not is_recent
+            and not _definition_changed(done, domain, frente_id, year, today)
+        ):
             report.skipped.append(key)
             continue
         try:

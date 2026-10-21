@@ -44,6 +44,24 @@ ADR F0-a (`docs/decisions/F0-a-volumen-ops.md`) y F0-e (`docs/decisions/F0-e-ing
 
 ---
 
+## Reenfoque (2026-10-21)
+
+Camilo pidió enfocar el radar en **biotech para producir alimentos** y **gestión del agua**, y que
+el etiquetado de evaluación lo haga Claude.
+
+- `agua` → "Gestión y tecnologías del agua": los 5 frentes más `riego_eficiencia`.
+- `agrobiotech` → "Biotech de cultivos": edición génica, biopesticidas, bioestimulantes y RNAi.
+  `agricultura_precision` sale del foco; su parte de riego pasa a agua.
+- Nuevo `alimentos_biotech`: `fermentacion_precision`, `fermentacion_biomasa`,
+  `carne_cultivada`, `microalgas_alimento` y `proteina_gases`. No hay códigos CPC ni topics de
+  OpenAlex específicos: se definen con códigos de contexto alimentario más palabras clave.
+- Etiquetado: lo hace Claude Opus (`claude -p`, plan Max), con criterios por frente. Mide el
+  **acuerdo con Claude**, no una validación humana. Riesgo aceptado por Camilo: las decisiones
+  de tesis sobre qué entra en cada frente quedan en los criterios escritos
+  (`src/radar/evals/criteria.py`), que él puede revisar.
+
+---
+
 ## Context
 
 Camilo quiere un sistema personal, de costo ~0, que detecte qué tecnologías cruzan un punto de inflexión (dónde, quién, por qué ahora) con evidencia trazable, para decidir dónde invertir atención, aprendizaje y capital. La carpeta del proyecto está vacía: esto es un greenfield. El plan prioriza un MVP pequeño y confiable (2 dominios, 2 fuentes, 2 salidas) sobre un sistema amplio.

@@ -32,6 +32,15 @@ ADJACENT_SEARCH = {
     "agua_atmosferica": '("water harvesting" OR "atmospheric water" OR "fog collection" '
     'OR "moisture harvesting")',
     "rnai_spray": '(dsRNA OR "RNA interference" OR RNAi) AND (crop OR plant OR pest)',
+    "fermentacion_precision": '(recombinant OR "precision fermentation" OR heterologous) '
+    "AND (food OR dairy OR milk OR egg)",
+    "fermentacion_biomasa": '(mycoprotein OR "single cell protein" OR "microbial protein" '
+    'OR "fungal protein" OR mycelium) AND (food OR protein)',
+    "carne_cultivada": '("cultured meat" OR "cell culture" OR "muscle cells" '
+    'OR "cellular agriculture") AND (meat OR food)',
+    "microalgas_alimento": "(microalgae OR spirulina OR chlorella) AND (food OR protein OR feed)",
+    "proteina_gases": '(methanotroph OR "hydrogen-oxidizing" OR hydrogenotrophic '
+    'OR "gas fermentation" OR Cupriavidus) AND protein',
 }
 
 
@@ -102,19 +111,26 @@ def _row(domain, frente, stratum, wid, year, title, abstract, url) -> dict:
     }
 
 
+ADJ_YEARS = (2016, 2025)
+
+
+def adjacent_filter(f: Frente) -> str:
+    """Universo "adyacente": mismo topic (o búsqueda más amplia) en 2016–2025."""
+    sci = f.science
+    if sci.rule == "keyword":
+        base = f"title_and_abstract.search:{ADJACENT_SEARCH[f.id]}"
+    else:
+        base = "primary_topic.id:" + "|".join(t.id for t in sci.topics)
+    return f"{base},publication_year:{ADJ_YEARS[0]}-{ADJ_YEARS[1]},type:{'|'.join(WORK_TYPES)}"
+
+
 def adjacent_candidates(
     client: OpenAlexClient, domain: Domain, members: pl.DataFrame
 ) -> list[dict]:
     rows: list[dict] = []
     assigned = set(members.filter(pl.col("domain") == domain.domain)["work_id"].to_list())
-    types = "|".join(WORK_TYPES)
     for i, f in enumerate(domain.frentes):
-        sci = f.science
-        if sci.rule == "keyword":
-            base = f"title_and_abstract.search:{ADJACENT_SEARCH[f.id]}"
-        else:
-            base = "primary_topic.id:" + "|".join(t.id for t in sci.topics)
-        flt = f"{base},publication_year:2016-2025,type:{types}"
+        flt = adjacent_filter(f)
         body = client.get(
             "/works",
             {
@@ -158,6 +174,8 @@ def write_set(domain: Domain, rows: list[dict], out_dir: Path = EVALS) -> tuple[
     key = pl.DataFrame(rows).select("n", "work_id", "domain", "frente", "estrato", "anio")
     key_path = out_dir / f"papers_{domain.domain}.key.csv"
     key.write_csv(key_path)
+    items = pl.DataFrame(rows).select("n", "work_id", "frente", "titulo", "resumen", "enlace")
+    items.write_ndjson(out_dir / f"papers_{domain.domain}.items.jsonl")
 
     import xlsxwriter
 

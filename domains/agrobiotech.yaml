@@ -1,8 +1,9 @@
-# Dominio piloto. Reemplaza "agricultura regenerativa" (práctica poco patentable).
+# Dominio de foco. Reemplaza "agricultura regenerativa" (práctica poco patentable).
+# 2026-10-21: agricultura_precision sale del foco; su parte de riego pasa a agua/riego_eficiencia.
 # CPC validado contra 2026.08 (ADR F0-g). Topics resueltos en el spike F0-c (2026-10-19).
 domain: agrobiotech
-name: Agrobiotech y bioinsumos
-version: "0.3"
+name: Biotech de cultivos
+version: "0.5"
 thesis: >
   Edición génica sin transgénesis (marcos regulatorios NGT), presión sobre
   agroquímicos y fertilizantes nitrogenados, y caída de costos de secuenciación
@@ -72,22 +73,9 @@ frentes:
       rule: keyword  # no hay topic específico
       keyword_groups:
         - [dsRNA, "double-stranded RNA"]
-        - [spray, topical, exogenous, SIGS, "crop protection", pest]
-
-  - id: agricultura_precision
-    name: Agricultura de precisión y suelo
-    rule: cpc
-    cpc_any: ["A01B79/005", "A01C21/007", "A01G25/16"]
-    cpc_qualified:
-      # análisis de suelos y TI de agricultura incluyen minería: solo con contexto agrícola
-      - codes: ["G01N33/24", "G06Q50/02"]
-        with_any: ["A01B", "A01C", "A01G"]
-    science:
-      rule: topic+keyword  # el topic incluye ganadería y visión por computador genérica
-      topics:
-        - {id: T10616, name: Smart Agriculture and AI}
-      keywords_any: ["precision agriculture", "precision farming", "variable rate", soil,
-                     fertilization, irrigation, "yield prediction", "crop monitoring"]
+        # evals 2026-10-21: "pest" traía RNAi transgénico y estudios de función génica
+        - [spray, sprayable, topical, exogenous, "foliar application", SIGS, "spray-induced",
+           "crop protection"]
 
 lenses: [all, international]
 min_families_per_period: 30

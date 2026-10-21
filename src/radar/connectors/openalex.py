@@ -68,6 +68,8 @@ def works_filter(
         parts.append("primary_topic.id:" + "|".join(ids))
     if science.rule in ("topic+keyword", "keyword"):
         parts.append("title_and_abstract.search:" + search_expression(science))
+    if science.title_keywords_any:
+        parts.append("title.search:" + _or_group(science.title_keywords_any))
     if since is not None:
         parts.append(f"from_publication_date:{since.isoformat()}")
     if until is not None:

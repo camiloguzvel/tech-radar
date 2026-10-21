@@ -1,0 +1,79 @@
+n,pertenece,frente_correcto,justificacion,frente,labeler,prompt_version,labeled_at
+1,si,,"Tratamiento de aguas grises con un consorcio microbiano para reciclarlas en usos no potables, lo que cuenta como reúso de agua tratada (nota: el proceso es biológico convencional, sin oxidación avanzada).",reutilizacion_avanzada,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+2,dudoso,,"Sin resumen; el riego deficitario parece ser solo la condición, y los factores estudiados son rotación y dosis de N.",riego_eficiencia,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+3,dudoso,,"Plan regional de cultivos para ahorrar agua subterránea; trata el uso del agua de riego, pero no la tecnología de riego en parcela.",riego_eficiencia,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+4,si,,Sistema de monitoreo de calidad del agua en redes de distribución con alertas por GSM/3G.,redes_inteligentes,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+5,si,,"Modelo acoplado de hidráulica, transporte suelo-agua y cultivo para diseñar y programar riego por goteo.",riego_eficiencia,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+6,si,,Estudia sustratos de papel biomiméticos para atrapar niebla y los factores que mejoran la captación.,agua_atmosferica,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+7,si,,"Estudia el tratamiento UV/peroxidisulfato, un proceso de oxidación avanzada, y cómo transforma la materia orgánica natural.",reutilizacion_avanzada,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+8,dudoso,,"Mide productividad del agua con niveles de humedad, pero el factor principal es el sustrato (aserrín), no el manejo del riego.",riego_eficiencia,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+9,si,,Fabrican membranas de PVC-co-VA/acetato de celulosa con zeolitas y las prueban en desalinización.,desalinizacion_membranas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+10,dudoso,,"No tiene resumen y es una revisión amplia en la que el tratamiento es solo uno de varios ejes (química, abundancia, detección); no se sabe cuánto peso tiene.",pfas_remocion,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+11,no,ninguno,"Trata del drenaje pluvial urbano y de las inundaciones, no de captar agua del aire.",agua_atmosferica,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+12,no,otro_dominio,Acolchado en remolacha: agronomía general sin manejo del riego.,riego_eficiencia,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+13,si,,Evalúa la captura e inmovilización de PFAS en biosólidos con carbón activado y biochar para controlar su lixiviación.,pfas_remocion,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+14,dudoso,,Gestión y gobernanza del agua agrícola y eficiencia de riego en el Magreb; es más de política que de tecnología.,riego_eficiencia,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+15,si,,Compara goteo superficial y subterráneo con láminas según ETc en algodón.,riego_eficiencia,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+16,no,otro_dominio,"Estudio toxicológico del PFOS en células cerebelosas, sin tratamiento.",pfas_remocion,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+17,si,,Catalizador tipo Fenton que activa peroximonosulfato para degradar ciprofloxacino en agua.,reutilizacion_avanzada,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+18,si,,Modifican una membrana de poliamida de piperazina (nanofiltración) para tratar aguas residuales con colorantes.,desalinizacion_membranas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+19,si,,Usa birnesita (MnO2) como sorbente para captar agua atmosférica en zonas áridas.,agua_atmosferica,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+20,dudoso,,"Fabrican una membrana de polisulfona y miden flujo y rechazo, pero no dicen si se usa para tratar agua. Nota: no está claro si cuenta una membrana cuyo uso no se nombra.",desalinizacion_membranas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+21,si,,Fabrica espinas inspiradas en el cactus para captar niebla de forma más eficiente.,agua_atmosferica,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+22,si,,Proponen un electrodo nuevo para mejorar la desionización capacitiva en desalinización.,desalinizacion_membranas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+23,si,,"Por el título, es una revisión de MOF para captación de agua atmosférica por sorción; no trae resumen, pero el título basta.",agua_atmosferica,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+24,si,,Proceso Fenton heterogéneo con pirita en un reactor para eliminar un colorante textil.,reutilizacion_avanzada,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+25,si,,Hacen membranas de ultrafiltración antiensuciamiento para obtener agua potable.,desalinizacion_membranas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+26,si,,"Tratamiento tipo Fenton, activado por campos electromagnéticos, para degradar cloroformo.",reutilizacion_avanzada,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+27,si,,Proponen una planta de membranas a presión (baromembranas) que corrige el balance iónico del agua para la agricultura. Nota: buena parte del texto trata de regulación ambiental.,desalinizacion_membranas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+28,si,,Estudian cómo se ensucian las membranas de ósmosis inversa con aguas residuales de mina.,desalinizacion_membranas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+29,dudoso,,Sin resumen; el título combina absorción de microondas con captación de agua del aire y no deja ver cuál es el foco principal.,agua_atmosferica,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+30,si,,Foto-Fenton solar contra bacterias resistentes a antibióticos en aguas residuales.,reutilizacion_avanzada,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+31,si,,Monitoreo y control IoT de la cantidad y la calidad del suministro de agua por vivienda.,redes_inteligentes,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+32,dudoso,,"Sin resumen; trata del muestreo de plomo en tuberías de agua potable, pero no queda claro si usa sensores o monitoreo de la red.",redes_inteligentes,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+33,si,,Compara programación de riego tradicional y basada en ET en algodón.,riego_eficiencia,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+34,si,,Proceso UV/Fenton para decolorar el colorante amarillo de metanilo.,reutilizacion_avanzada,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+35,si,,Combinan una pila de combustible con destilación por membrana de contacto directo para desalinizar agua de mar.,desalinizacion_membranas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+36,no,ninguno,Estudia la autopropulsión de gotas de Leidenfrost; la captación de niebla solo aparece como posible aplicación.,agua_atmosferica,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+37,no,desalinizacion_membranas,"Revisión de biorreactores de membrana para aguas grises; el foco es la tecnología de membranas (nota: también toca el reúso, caso límite).",reutilizacion_avanzada,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+38,no,otro_dominio,Evalúa sistemas agrícolas integrados por su efecto en el ingreso; la captación de agua es solo un componente y no atmosférica.,agua_atmosferica,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+39,si,,Analiza cómo se desplazan las gotas en mallas de fibras para diseñar atrapanieblas.,agua_atmosferica,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+40,si,,"Usan desionización capacitiva para quitar Cr(VI) del agua. Nota: el objetivo es un metal pesado, no la sal.",desalinizacion_membranas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+41,dudoso,,"Viabilidad económica del riego en mijo forrajero; trata el riego, pero no la precisión ni la eficiencia hídrica.",riego_eficiencia,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+42,si,,Riego suplementario por microaspersión como técnica de ahorro de agua en trigo.,riego_eficiencia,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+43,si,,Red de sensores de presión inalámbricos con plataforma IoT para detectar fallas en redes de agua.,redes_inteligentes,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+44,si,,Riego automatizado con sensores de humedad y eficiencia del uso del agua.,riego_eficiencia,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+45,si,,Pronóstico de demanda para gestionar en tiempo casi real redes inteligentes de distribución.,redes_inteligentes,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+46,si,,Revisión sobre goteo con acolchado y eficiencia del uso del agua.,riego_eficiencia,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+47,si,,Optimiza válvulas de control para reducir fugas en redes de distribución.,redes_inteligentes,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+48,no,otro_dominio,Compara métodos analíticos de extracción de PFAS en suero y placenta; es analítica sola.,pfas_remocion,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+49,si,,Modelan electrodos de carbono nanoporoso tanto para desalinización capacitiva como para energía azul. Nota: el foco principal parece ser la energía.,desalinizacion_membranas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+50,dudoso,,"Es una membrana catalítica que activa peroximonosulfato, así que mezcla membrana y oxidación avanzada. Nota: podría encajar mejor en reutilizacion_avanzada.",desalinizacion_membranas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+51,no,otro_dominio,Revisión sobre efectos de los PFAS en la salud femenina; es toxicología y epidemiología.,pfas_remocion,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+52,no,ninguno,"Ensayo de laboratorio sobre golpe de ariete en una tubería, sin monitoreo ni red de distribución.",redes_inteligentes,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+53,no,ninguno,"Es una noticia sobre subida de precios que solo nombra membranas de ósmosis inversa, sin contenido técnico.",desalinizacion_membranas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+54,si,,Ponen un recubrimiento antibacteriano sobre membranas electrohiladas para filtrar agua.,desalinizacion_membranas,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+55,no,ninguno,"Ocurrencia, método analítico y riesgo sanitario de PFAS en agua potable; menciona procesos de tratamiento, pero no los evalúa como tecnología de remoción.",pfas_remocion,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+56,si,,Diseña un aerogel fototérmico con MOF para captar agua atmosférica.,agua_atmosferica,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+57,si,,"Oxidación catalítica húmeda con peróxido para eliminar fenol, que es un proceso de oxidación avanzada.",reutilizacion_avanzada,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+58,no,otro_dominio,"Revierte la unión del PFOA a la albúmina humana dentro del organismo; es biomédico, no tratamiento de agua.",pfas_remocion,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+59,no,ninguno,"Evalúa el muestreo pasivo para monitorear PFAS en sedimentos; es monitoreo ambiental, no remoción ni redes de agua.",pfas_remocion,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+60,no,otro_dominio,Oxidación catalítica de triclorobenceno a 300 °C en fase gas; no es tratamiento de agua.,reutilizacion_avanzada,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+61,si,,Degradación fotooxidativa de azul de metileno en agua usando ácido ascórbico.,reutilizacion_avanzada,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+62,si,,"Proceso sono-foto-electrocinético con TiO2, basado en radicales hidroxilo, para eliminar furfural de un efluente salino de refinería.",reutilizacion_avanzada,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+63,si,,Gestión de presión con bombas como turbinas en sectores (DMA) para reducir pérdidas en la red.,redes_inteligentes,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+64,no,otro_dominio,"Respuestas celulares de microalgas al PFOA; es ecotoxicología, sin tratamiento.",pfas_remocion,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+65,si,,Estudia la desfluoración de 34 PFAS con electrones hidratados generados por UV y sus implicaciones para la remediación.,pfas_remocion,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+66,no,ninguno,Extrae agua de la humedad del suelo calentándolo con sol; no la capta del aire.,agua_atmosferica,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+67,si,,"Degradación sonoquímica del PFOA con peryodato, que logra alta desfluoración; nota: también es oxidación avanzada, pero el objetivo es destruir PFAS.",pfas_remocion,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+68,no,ninguno,"Trata de la captación de escorrentía de lluvia (Marab), que está excluida explícitamente del frente.",agua_atmosferica,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+69,no,otro_dominio,"Visión artificial para reconocer peces; tema de pesca o acuicultura, excluido.",redes_inteligentes,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+70,no,otro_dominio,"Bioconcentración de PFAS en tejidos de peces expuestos a agua contaminada con espumas contra incendios (AFFF); es exposición, sin tratamiento.",pfas_remocion,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+71,no,otro_dominio,"Propone un marco teórico de urbanismo descentralizado, ajeno a las tecnologías del agua.",agua_atmosferica,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+72,dudoso,,"Sin resumen; asigna lecturas de medidores a un modelo hidráulico de la red, cercano a gemelo digital pero no queda claro.",redes_inteligentes,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+73,dudoso,,Sin resumen; no queda claro si los regímenes de humedad del suelo son tratamientos de riego.,riego_eficiencia,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+74,no,ninguno,"Diseño hidráulico con EPANET de una red rural, sin monitoreo, sensores ni control.",redes_inteligentes,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+75,no,ninguno,"Sin resumen; por el título, mide la movilidad (destino ambiental) de los PFAS, no su remoción. Nota: podría tratarse de la adsorción en columna.",pfas_remocion,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+76,dudoso,,"Compara software de análisis de calidad del agua y menciona SCADA/GIS solo como ejemplos, sin un enfoque claro en redes.",redes_inteligentes,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+77,dudoso,,"Calibra el factor de fricción de un modelo de red por transitorio inverso; ayuda a modelar la red, pero no es monitoreo directo.",redes_inteligentes,claude-opus,papers-v1,2026-10-21T12:11:07+00:00
+78,no,otro_dominio,"Usa agua residual sin tratar para fabricar concreto; es un tema de materiales de construcción, no de reúso de agua tratada.",reutilizacion_avanzada,claude-opus,papers-v1,2026-10-21T12:11:07+00:00

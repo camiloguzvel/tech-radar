@@ -40,6 +40,46 @@ CRITERIA: dict[str, dict[str, str]] = {
         "de agua potable o alcantarillado.",
         "excluye": "Hidrología y cuencas; calidad de ríos sin red; acuicultura; oleoductos o gas.",
     },
+    "riego_eficiencia": {
+        "incluye": "Riego de precisión, por goteo o deficitario, programación de riego, sensores "
+        "de humedad, y estudios de productividad o eficiencia del agua en cultivos ligados al "
+        "manejo del riego.",
+        "excluye": "Agronomía general sin manejo del riego; hidrología de cuencas; drenaje "
+        "urbano; estrés por sequía sin intervención de riego.",
+    },
+    "fermentacion_precision": {
+        "incluye": "Producción de proteínas o ingredientes alimentarios específicos con "
+        "microorganismos modificados (proteínas lácteas o de huevo sin animales, hemo, "
+        "enzimas o grasas para alimentos).",
+        "excluye": "Proteínas recombinantes para vacunas, diagnóstico o medicina; líneas "
+        "recombinantes de mejoramiento vegetal; biología molecular sin aplicación alimentaria.",
+    },
+    "fermentacion_biomasa": {
+        "incluye": "Biomasa microbiana o fúngica como alimento o pienso: micoproteína, proteína "
+        "unicelular, micelio para alimentos, procesos de fermentación de biomasa.",
+        "excluye": "Hongos comestibles cultivados de forma tradicional sin enfoque proteico; "
+        "ecología de suelos; biorremediación; metabolitos secundarios.",
+    },
+    "carne_cultivada": {
+        "incluye": "Carne, pescado o grasa producidos a partir de células cultivadas: líneas "
+        "celulares, medios, andamios, biorreactores, escalado, costos, aceptación del "
+        "consumidor y regulación.",
+        "excluye": "Análogos vegetales de carne; biología muscular sin fin alimentario; "
+        "ingeniería de tejidos médica.",
+    },
+    "microalgas_alimento": {
+        "incluye": "Microalgas (espirulina, clorela y otras) como alimento, ingrediente, "
+        "suplemento o pienso: cultivo orientado a alimentos, composición nutricional, "
+        "procesamiento.",
+        "excluye": "Microalgas para biocombustibles, tratamiento de aguas o ecología acuática; "
+        "macroalgas (algas marinas).",
+    },
+    "proteina_gases": {
+        "incluye": "Proteína para alimentos o piensos producida por bacterias que usan "
+        "hidrógeno, CO2 o metano (hidrogenotróficas, metanótrofas, fermentación de gases).",
+        "excluye": "Producción de biogás o metano; ecología o genética de estos microbios sin "
+        "producción de proteína; otros productos químicos.",
+    },
     "edicion_genica_vegetal": {
         "incluye": "CRISPR/Cas, edición de bases, prime editing o TALEN aplicados a plantas o "
         "cultivos: herramientas y aplicaciones.",

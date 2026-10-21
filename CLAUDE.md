@@ -7,7 +7,11 @@ No medir "cuánta tecnología hay". Plan completo y decisiones: `docs/plan.md`; 
 ## Conceptos
 - **Dominio** = unidad de tesis (`domains/<id>.yaml`). **Frente** = subdominio estrecho, unidad de detección de señales.
 - Capas: **dato** (`data/staging`, `data/core`) · **señal** (`data/marts`, determinista) · **interpretación** (borradores revisados por humano).
-- Pilotos MVP: `agua`, `agrobiotech`. Fuentes MVP: EPO OPS (patentes) + OpenAlex (ciencia).
+- Foco (2026-10-21): `agua` (gestión y tecnologías del agua, incluye riego), `agrobiotech` (biotech de cultivos)
+  y `alimentos_biotech` (fermentación, carne cultivada, microalgas, proteína de gases). `control` solo calibra.
+  Fuentes: EPO OPS (patentes) + OpenAlex (ciencia).
+- Etiquetas de evaluación hechas por Claude (`labeler=claude-*`) miden acuerdo con Claude, no validación humana:
+  reportarlo siempre así.
 
 ## Reglas de datos (no negociables)
 - Nunca inventar, imputar ni "rellenar" datos. Si una fuente falla: registrar en `runs`/`errors` y dejar el hueco visible.

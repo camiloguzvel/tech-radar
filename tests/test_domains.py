@@ -15,7 +15,7 @@ SCIENCE = {"rule": "keyword", "keywords_any": ["x"]}
 
 def test_domains_load():
     domains = load_domains()
-    assert set(domains) == {"agua", "agrobiotech", "control"}
+    assert set(domains) == {"agua", "agrobiotech", "alimentos_biotech", "control"}
     assert domains["control"].role == "calibration"
     for name in ("agua", "agrobiotech"):
         assert domains[name].role == "thesis"

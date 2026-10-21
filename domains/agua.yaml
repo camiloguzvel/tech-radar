@@ -2,8 +2,8 @@
 # están validados contra el esquema CPC 2026.08 (ADR F0-g); cada código incluye sus subgrupos.
 # Bloque `science`: topics de OpenAlex resueltos en el spike F0-c (2026-10-19).
 domain: agua
-name: Tecnologías del agua
-version: "0.3"
+name: Gestión y tecnologías del agua
+version: "0.6"
 thesis: >
   Regulación de contaminantes emergentes (PFAS), escasez hídrica y reutilización
   industrial (semiconductores, data centers) empujan tratamiento avanzado y
@@ -19,7 +19,15 @@ frentes:
       rule: topic+keyword  # el topic incluye toxicología y exposición, no solo remoción
       topics:
         - {id: T11869, name: Per- and polyfluoroalkyl substances research}
-      keywords_any: [removal, degradation, destruction, treatment, adsorption, remediation]
+      # evals 2026-10-21: "degradation" y "treatment" traían toxicología y destino ambiental
+      keywords_any: [removal, adsorption, destruction, remediation, defluorination, sorbent,
+                     "water treatment", "treatment technology"]
+      # evals 2026-10-21 (2.ª ronda): el resumen menciona el tratamiento de pasada en estudios de
+      # riesgo, monitoreo y ecotoxicología; se exige un término de tratamiento en el título
+      title_keywords_any: [removal, remove, adsorption, sorption, sorbent, destruction,
+                           degradation, defluorination, treatment, remediation, membrane,
+                           oxidation, electrochemical, "ion exchange", incineration, plasma,
+                           sonochemical, photocatalytic, "foam fractionation"]
 
   - id: desalinizacion_membranas
     name: Desalinización y membranas
@@ -80,6 +88,21 @@ frentes:
       keyword_groups:
         - ["water distribution", "water supply", "water network", pipeline, pipe, "drinking water"]
         - [leak, leakage, sensor, monitoring, smart, "digital twin", burst, "real-time"]
+
+  - id: riego_eficiencia
+    name: Riego de precisión y eficiencia hídrica
+    rule: cpc|keyword
+    cpc_any: ["A01G25/16", "A01G25/02", "A01G25/06"]  # control de riego, goteo, riego subterráneo
+    keywords_any: ["precision irrigation", "smart irrigation", "deficit irrigation",
+                   "irrigation scheduling", "variable rate irrigation"]
+    science:
+      rule: topic+keyword  # T11404 cubre prácticas de riego en general
+      topics:
+        - {id: T11404, name: Irrigation Practices and Water Management}
+      keywords_any: ["deficit irrigation", "drip irrigation", "precision irrigation",
+                     "smart irrigation", "irrigation scheduling", "variable rate irrigation",
+                     "water productivity", "water use efficiency", "subsurface irrigation",
+                     "soil moisture sensor"]
 
 exclude:
   cpc_only_if_alone: ["C02F2201", "C02F2209"]  # códigos auxiliares de indexación

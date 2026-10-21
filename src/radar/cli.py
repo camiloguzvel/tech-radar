@@ -56,7 +56,9 @@ def validate(
 openalex_app = typer.Typer(no_args_is_help=True, help="Ciencia: ingesta y staging de OpenAlex.")
 app.add_typer(openalex_app, name="openalex")
 
-DOMAINS_OPT = typer.Option("agua,agrobiotech", help="Dominios separados por coma.")
+DOMAINS_OPT = typer.Option(
+    "agua,agrobiotech,alimentos_biotech", help="Dominios separados por coma."
+)
 
 
 def _select_domains(names: str):
@@ -141,6 +143,28 @@ def openalex_run(domains: str = DOMAINS_OPT) -> None:
     """Ingesta + build."""
     openalex_ingest(domains=domains, since=2014, refresh_recent=2, totals=True)
     openalex_build(domains=domains, fetch_institutions=True)
+
+
+evals_app = typer.Typer(no_args_is_help=True, help="Evaluación de definiciones de frente.")
+app.add_typer(evals_app, name="evals")
+
+
+@evals_app.command("cycle")
+def evals_cycle(domains: str = DOMAINS_OPT, model: str = "opus") -> None:
+    """Ingesta de lo que cambió, staging, sets, etiquetado con Claude y métricas."""
+    from radar.evals.cycle import run_cycle
+
+    results = run_cycle(_select_domains(domains), model=model)
+    if results is None:
+        raise typer.Exit(2)
+    for name, m in results.items():
+        typer.echo(f"--- {name}")
+        for r in m.iter_rows(named=True):
+            p = "-" if r["precision"] is None else f"{r['precision']:.2f}"
+            rc = "-" if r["recall_estimado"] is None else f"{r['recall_estimado']:.2f}"
+            typer.echo(
+                f"{r['frente']:28s} precision={p} núcleo={r['nucleo_si_no_dudoso']} recall≈{rc}"
+            )
 
 
 epo_app = typer.Typer(no_args_is_help=True, help="Patentes: ingesta de EPO OPS.")

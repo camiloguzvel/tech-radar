@@ -155,3 +155,22 @@ def test_incomplete_partition_is_ignored(raw):
 def test_reconstruct_abstract_orders_positions():
     assert st.reconstruct_abstract({"b": [1], "a": [0, 2]}) == "a b a"
     assert st.reconstruct_abstract(None) is None
+
+
+def test_changed_definition_is_redownloaded(raw):
+    server = FakeServer({"water": [[work(1)]], "membrane": [[work(2)]], "lake": [[work(5)]]})
+    client = client_for(server)
+    ing.ingest_works(
+        client, [DOMAIN], "run-1", since_year=2024, refresh_recent_years=0, today=date(2026, 10, 20)
+    )
+    changed = DOMAIN.model_copy(deep=True)
+    changed.frentes[0].science.keywords_any[0] = "lake"
+    r = ing.ingest_works(
+        client,
+        [changed],
+        "run-2",
+        since_year=2024,
+        refresh_recent_years=0,
+        today=date(2026, 10, 20),
+    )
+    assert "agua/f1/2024" in r.done and "agua/f2/2024" in r.skipped

@@ -61,3 +61,16 @@ def test_all_pilot_frentes_build_filters():
         assert not domain.unresolved_topics()
         for frente in domain.frentes:
             assert works_filter(frente.science)
+
+
+def test_title_keywords_add_title_search():
+    science = ScienceDef(
+        rule="keyword",
+        keywords_any=["cultured meat"],
+        title_keywords_any=["cultured meat", "cellular agriculture"],
+    )
+    flt = works_filter(science, types=())
+    assert flt == (
+        'title_and_abstract.search:("cultured meat"),'
+        'title.search:("cultured meat" OR "cellular agriculture")'
+    )

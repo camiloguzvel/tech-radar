@@ -70,6 +70,9 @@ class ScienceDef(KeywordSpec):
 
     rule: Literal["topic", "topic+keyword", "keyword"]
     topics: list[TopicRef] = Field(default_factory=list, max_length=100)
+    # Término central obligatorio en el TÍTULO (además de la regla). Sube la precisión cuando
+    # las keywords aparecen de pasada en resúmenes de revisiones generales (evals 2026-10-21).
+    title_keywords_any: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def _rule_has_inputs(self) -> ScienceDef:

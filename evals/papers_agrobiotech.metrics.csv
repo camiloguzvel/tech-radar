@@ -1,0 +1,5 @@
+frente,labeler,precision,precision_ci_low,precision_ci_high,nucleo_si_no_dudoso,frontera_si_no_dudoso,adyacente_si_no_dudoso,asignados_2016_2025,universo_excluido,recall_estimado,reasignados_a
+edicion_genica_vegetal,claude-opus,1.0,0.5655085052479191,1.0,5/0/3,1/1/0,0/3/0,4213,30450,1.0,"ninguno, otro_dominio"
+biopesticidas,claude-opus,1.0,0.5655085052479191,1.0,5/0/3,2/0/0,3/0/0,8010,6219,0.5629348513598988,""
+bioestimulantes_fijacion_n,claude-opus,1.0,0.5655085052479191,1.0,5/0/3,1/1/0,1/2/0,20427,55194,0.5261300708306503,"biopesticidas, ninguno, otro_dominio"
+rnai_spray,claude-opus,0.875,0.5291051942301386,0.9775830911367038,7/1/0,0/2/0,0/2/1,874,7252,1.0,"ninguno, otro_dominio"

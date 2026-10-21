@@ -1,5 +1,10 @@
 # Guía de etiquetado (F1)
 
+> **Actualización 2026-10-21:** por decisión de Camilo, el etiquetado lo hace Claude Opus con
+> `radar.evals.llm_labeler` (etiquetas en `evals/papers_*.labels.csv`, columna `labeler`). Las
+> métricas resultantes miden el acuerdo de las definiciones con Claude. Camilo puede revisar
+> cualquier fila o los criterios en cualquier momento; esta guía sigue valiendo para eso.
+
 Para qué sirve: medir si las definiciones de los frentes son precisas (meta ≥ 0,85) y cuánto
 dejan fuera (recall ≥ 0,70) **antes** de que el radar emita señales. Sin esto, una "señal"
 podría ser ruido de clasificación.

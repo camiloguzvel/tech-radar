@@ -1,0 +1,64 @@
+n,pertenece,frente_correcto,justificacion,frente,labeler,prompt_version,labeled_at
+1,si,,"Revisión sobre carne cultivada a partir de células madre musculares, su escalado y aceptación.",carne_cultivada,claude-opus,papers-v1,2026-10-21T12:10:32+00:00
+2,si,,"Estabiliza por microencapsulación la ficocianina de espirulina, que se usa como ingrediente alimentario funcional.",microalgas_alimento,claude-opus,papers-v1,2026-10-21T12:10:49+00:00
+3,si,,"Valida una proteína unicelular como fuente proteica para piensos de acuicultura; no se especifica el sustrato de la SCP, lo que podría situarla en proteina_gases.",fermentacion_biomasa,claude-opus,papers-v1,2026-10-21T12:10:18+00:00
+4,no,ninguno,Biosíntesis de un alcaloide bacteriano sin aplicación alimentaria.,fermentacion_precision,claude-opus,papers-v1,2026-10-21T12:10:02+00:00
+5,no,otro_dominio,"Electrofermentación de syngas con acetógenos para producir químicos, no proteína.",proteina_gases,claude-opus,papers-v1,2026-10-21T12:11:06+00:00
+6,no,ninguno,"Reensambla micelas a partir de caseinato de sodio de origen lácteo, no de caseína producida por microorganismos; nota: es relevante para lácteos sin animales, pero el resumen no lo dice.",fermentacion_precision,claude-opus,papers-v1,2026-10-21T12:10:02+00:00
+7,si,,Incorpora proteína unicelular de Candida utilis en una bebida láctea como ingrediente alimentario.,fermentacion_biomasa,claude-opus,papers-v1,2026-10-21T12:10:18+00:00
+8,si,,Produce proteína unicelular con la bacteria oxidante de hidrógeno Cupriavidus necator a partir del H2/CO2 de la fermentación oscura.,proteina_gases,claude-opus,papers-v1,2026-10-21T12:11:06+00:00
+9,dudoso,,"Cultiva Dunaliella para obtener carotenoides; el alimento es solo una de varias aplicaciones citadas, junto a la farmacia. Nota: falta decidir si los pigmentos de uso mixto entran.",microalgas_alimento,claude-opus,papers-v1,2026-10-21T12:10:49+00:00
+10,dudoso,,"Sin resumen; menciona proteína microbiana de residuos, pero no está claro si se obtiene de gases.",proteina_gases,claude-opus,papers-v1,2026-10-21T12:11:06+00:00
+11,no,ninguno,"Estudio clínico de inmunocomplejos y antígenos microbianos en tumores de mama, ajeno a la producción de alimentos.",fermentacion_biomasa,claude-opus,papers-v1,2026-10-21T12:10:18+00:00
+12,si,,"Aunque no tiene resumen, el título indica una revisión sobre proteína unicelular en nutrición.",fermentacion_biomasa,claude-opus,papers-v1,2026-10-21T12:10:18+00:00
+13,dudoso,,"Produce ovoalbúmina recombinante en E. coli, pero con fines estructurales y sin mencionar uso alimentario.",fermentacion_precision,claude-opus,papers-v1,2026-10-21T12:10:02+00:00
+14,si,,Revisión del estado de la investigación e ingeniería de la carne cultivada.,carne_cultivada,claude-opus,papers-v1,2026-10-21T12:10:32+00:00
+15,si,,Produce biomasa de S. cerevisiae como proteína unicelular a partir de residuos de dátil y optimiza la fermentación.,fermentacion_biomasa,claude-opus,papers-v1,2026-10-21T12:10:18+00:00
+16,no,ninguno,"Trata de cultivo de células vegetales de avellano para producir taxol, un fármaco, no alimentos.",carne_cultivada,claude-opus,papers-v1,2026-10-21T12:10:32+00:00
+17,si,,Predice la calidad de células madre musculares porcinas para producir carne cultivada.,carne_cultivada,claude-opus,papers-v1,2026-10-21T12:10:32+00:00
+18,si,,"Estudia la micoproteína (Quorn) como alimento y sus efectos en la microbiota; trata de nutrición más que de producción, así que es un caso límite.",fermentacion_biomasa,claude-opus,papers-v1,2026-10-21T12:10:18+00:00
+19,si,,Caso de innovación responsable en la cadena de valor de un ingrediente de proteína unicelular para piensos; no se indica el sustrato.,fermentacion_biomasa,claude-opus,papers-v1,2026-10-21T12:10:18+00:00
+20,no,otro_dominio,"Producción recombinante de despolimerasas de PHB, sin relación con proteína alimentaria.",proteina_gases,claude-opus,papers-v1,2026-10-21T12:11:06+00:00
+21,si,,Enriquece microalgas con vitamina B12 biodisponible para suplementos y alimentos funcionales.,microalgas_alimento,claude-opus,papers-v1,2026-10-21T12:10:49+00:00
+22,si,,Propone un método escalable para extraer proteína de espirulina y clorela como fuente alternativa de proteína.,microalgas_alimento,claude-opus,papers-v1,2026-10-21T12:10:49+00:00
+23,si,,Rediseña la β-lactoglobulina para producirla por fermentación de precisión como proteína alimentaria.,fermentacion_precision,claude-opus,papers-v1,2026-10-21T12:10:02+00:00
+24,si,,Revisa las microalgas como fuente de proteína para alimentos humanos y suplementos.,microalgas_alimento,claude-opus,papers-v1,2026-10-21T12:10:49+00:00
+25,dudoso,,"No tiene resumen; el título trata la carne in vitro, pero parece un ensayo ético o social sobre los animales y no sobre la tecnología.",carne_cultivada,claude-opus,papers-v1,2026-10-21T12:10:32+00:00
+26,si,,Estudia cómo perciben los consumidores neozelandeses la carne in vitro.,carne_cultivada,claude-opus,papers-v1,2026-10-21T12:10:32+00:00
+27,no,fermentacion_biomasa,Revisión general de proteína unicelular; metanótrofas e hidrogenotróficas son solo una parte.,proteina_gases,claude-opus,papers-v1,2026-10-21T12:11:06+00:00
+28,no,otro_dominio,"Trata la cosecha de microalgas para biocombustibles y oleoquímicos, uso que el frente excluye.",microalgas_alimento,claude-opus,papers-v1,2026-10-21T12:10:49+00:00
+29,si,,El título trata directamente de la fermentación de gases para producir proteína alimentaria.,proteina_gases,claude-opus,papers-v1,2026-10-21T12:11:06+00:00
+30,no,otro_dominio,Describe un begomovirus recombinante en malezas y pepino; es virología vegetal y no trata de producir ingredientes alimentarios con microorganismos.,fermentacion_precision,claude-opus,papers-v1,2026-10-21T12:10:02+00:00
+31,si,,"Usa β-lactoglobulina recombinante, obtenida por fermentación de precisión, para aplicaciones alimentarias.",fermentacion_precision,claude-opus,papers-v1,2026-10-21T12:10:02+00:00
+32,si,,El título trata de la proteína unicelular obtenida por recuperación de nutrientes para usarla como ingrediente de piensos.,fermentacion_biomasa,claude-opus,papers-v1,2026-10-21T12:10:18+00:00
+33,no,proteina_gases,"Convierte metano residual en proteína unicelular para alimento de mascotas, que corresponde a la fermentación de gases.",fermentacion_biomasa,claude-opus,papers-v1,2026-10-21T12:10:18+00:00
+34,si,,"Revisión sobre la producción de proteína a partir de biomasa de levaduras y mohos (Fusarium venenatum, entre otros) para alimentos y piensos.",fermentacion_biomasa,claude-opus,papers-v1,2026-10-21T12:10:18+00:00
+35,dudoso,,Estudia la estructura cristalina de la ovoalbúmina recombinante; no hay resumen y no se ve la aplicación alimentaria.,fermentacion_precision,claude-opus,papers-v1,2026-10-21T12:10:02+00:00
+36,si,,Produce ovoalbúmina sin animales en levadura modificada mediante fermentación de precisión.,fermentacion_precision,claude-opus,papers-v1,2026-10-21T12:10:02+00:00
+37,si,,"Trata innovaciones en carne cultivada: andamios, medios sin suero fetal bovino y escalado.",carne_cultivada,claude-opus,papers-v1,2026-10-21T12:10:32+00:00
+38,si,,Estudia la aceptación del consumidor y la intención de probar carne cultivada.,carne_cultivada,claude-opus,papers-v1,2026-10-21T12:10:32+00:00
+39,dudoso,,"Revisión sobre el monitoreo de bioprocesos con metabolómica; el título dice fermentación de precisión, pero el resumen no menciona alimentos.",fermentacion_precision,claude-opus,papers-v1,2026-10-21T12:10:02+00:00
+40,si,,Evalúa proteína unicelular de bacterias metanótrofas como pienso para peces.,proteina_gases,claude-opus,papers-v1,2026-10-21T12:11:06+00:00
+41,no,otro_dominio,"Fermentación ruminal in vitro con forrajes taninosos; es nutrición animal, no biomasa microbiana como alimento.",fermentacion_biomasa,claude-opus,papers-v1,2026-10-21T12:10:18+00:00
+42,dudoso,,Evalúa efectos terapéuticos de un extracto oral de espirulina en ratones; el enfoque es farmacológico más que alimentario. Nota: falta decidir si los estudios de salud de suplementos entran.,microalgas_alimento,claude-opus,papers-v1,2026-10-21T12:10:49+00:00
+43,dudoso,,"Sin resumen; vectores de expresión para proteína recombinante en Ralstonia, sin indicio de uso alimentario.",proteina_gases,claude-opus,papers-v1,2026-10-21T12:11:06+00:00
+44,si,,Prueba la harina de bacteria metanótrofa FeedKind como sustituto de la harina de pescado en pienso.,proteina_gases,claude-opus,papers-v1,2026-10-21T12:11:06+00:00
+45,si,,Lanzamiento de un helado con proteína láctea sin animales obtenida por fermentación.,fermentacion_precision,claude-opus,papers-v1,2026-10-21T12:10:02+00:00
+46,no,ninguno,"Alérgenos recombinantes de clara de huevo para análisis inmunológico, lo que cae en la exclusión por diagnóstico.",fermentacion_precision,claude-opus,papers-v1,2026-10-21T12:10:02+00:00
+47,no,otro_dominio,Efecto de aceites vegetales sobre la microbiota ruminal en fermentadores; es nutrición de rumiantes.,fermentacion_biomasa,claude-opus,papers-v1,2026-10-21T12:10:18+00:00
+48,no,ninguno,"Reseña retractada de un suplemento keto para adelgazar, sin relación con microalgas.",microalgas_alimento,claude-opus,papers-v1,2026-10-21T12:10:49+00:00
+49,no,otro_dominio,Control biológico de parásitos en ovinos con una toxina Cry; tema veterinario.,fermentacion_precision,claude-opus,papers-v1,2026-10-21T12:10:02+00:00
+50,no,ninguno,Trata la producción de nanocelulosa bacteriana para materiales; no es carne cultivada ni proteína alimentaria.,carne_cultivada,claude-opus,papers-v1,2026-10-21T12:10:32+00:00
+51,si,,"Compara la composición bioquímica de cepas de espirulina, un tema nutricional. Nota: no tiene resumen y se juzgó solo por el título.",microalgas_alimento,claude-opus,papers-v1,2026-10-21T12:10:49+00:00
+52,si,,Bioconversión de celulosa en proteína unicelular y aceite con levaduras y bacterias para alimentos y piensos.,fermentacion_biomasa,claude-opus,papers-v1,2026-10-21T12:10:18+00:00
+53,dudoso,,Sin resumen; la fijación de CO2 por bacterias oxidantes de hidrógeno puede apuntar a químicos y no a proteína.,proteina_gases,claude-opus,papers-v1,2026-10-21T12:11:06+00:00
+54,si,,Producción de proteína unicelular con bacterias oxidantes de hidrógeno.,proteina_gases,claude-opus,papers-v1,2026-10-21T12:11:06+00:00
+55,si,,Revisión de técnicas de cultivo celular y biorreactores para carne cultivada.,carne_cultivada,claude-opus,papers-v1,2026-10-21T12:10:32+00:00
+56,si,,Desarrolla andamios comestibles de seda modificada para carne cultivada.,carne_cultivada,claude-opus,papers-v1,2026-10-21T12:10:32+00:00
+57,no,otro_dominio,"Fisiología y expresión génica de una metanótrofa, sin producción de proteína.",proteina_gases,claude-opus,papers-v1,2026-10-21T12:11:06+00:00
+58,no,otro_dominio,"Usa caseínas recombinantes para obtener péptidos contra la enzima de una plaga del trigo; el objetivo es el control de plagas, no un ingrediente alimentario.",fermentacion_precision,claude-opus,papers-v1,2026-10-21T12:10:02+00:00
+59,no,ninguno,Trata extractos vegetales contra la hipertensión; el cultivo celular solo aparece como método.,carne_cultivada,claude-opus,papers-v1,2026-10-21T12:10:32+00:00
+60,si,,Encuesta a consumidores sobre su disposición a comprar alimentos a base de microalgas.,microalgas_alimento,claude-opus,papers-v1,2026-10-21T12:10:49+00:00
+61,si,,Revisión sistemática sobre la percepción y la aceptación de la carne cultivada por los consumidores.,carne_cultivada,claude-opus,papers-v1,2026-10-21T12:10:32+00:00
+62,no,otro_dominio,"Descripción taxonómica de un metanógeno marino, sin producción de proteína.",proteina_gases,claude-opus,papers-v1,2026-10-21T12:11:06+00:00
+63,si,,Revisa el uso de espirulina como ingrediente de pienso para gallinas ponedoras.,microalgas_alimento,claude-opus,papers-v1,2026-10-21T12:10:49+00:00

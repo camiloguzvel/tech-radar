@@ -1,0 +1,108 @@
+# Dominio de foco (2026-10-21): biotecnología para producir alimentos.
+# CPC validado contra 2026.08 (no hay códigos específicos de carne cultivada ni de
+# fermentación de precisión: se combinan códigos con contexto alimentario y keywords).
+# OpenAlex no tiene topics para estos frentes salvo microalgas (amplio): se usan keywords.
+domain: alimentos_biotech
+name: Biotech para producir alimentos
+version: "0.4"
+thesis: >
+  El abaratamiento de la fermentación y de los medios de cultivo, la presión climática y de
+  bienestar animal sobre la proteína animal, y los marcos regulatorios de nuevos alimentos
+  habilitan proteínas e ingredientes producidos por microorganismos, algas y células.
+
+frentes:
+  - id: fermentacion_precision
+    name: Fermentación de precisión
+    rule: cpc+keyword
+    cpc_qualified:
+      # producción de proteínas por microorganismos (C12P21) o vectores de levaduras y hongos,
+      # solo con contexto alimentario
+      - codes: ["C12P21/00", "C12N15/81", "C12N15/80"]
+        with_any: ["A23J", "A23C", "A23L"]
+    # "recombinant" solo traía vacunas y líneas de mejoramiento: frases específicas
+    keywords_any: ["precision fermentation", "animal-free", "recombinant casein",
+                   "recombinant whey", "recombinant beta-lactoglobulin", "recombinant ovalbumin",
+                   "recombinant egg white", "leghemoglobin", "recombinant milk protein"]
+    science:
+      rule: keyword
+      keywords_any: ["precision fermentation", "animal-free protein", "animal-free dairy",
+                     "recombinant casein", "recombinant whey", "recombinant beta-lactoglobulin",
+                     "recombinant ovalbumin", "recombinant egg white",
+                     "recombinant leghemoglobin", "recombinant milk protein"]
+      # evals 2026-10-21: el término aparecía de pasada en ensayos y biomedicina
+      title_keywords_any: ["precision fermentation", "animal-free", recombinant, heterologous,
+                           whey, casein, ovalbumin, "egg white", leghemoglobin, heme,
+                           "milk protein", "dairy protein"]
+
+  - id: fermentacion_biomasa
+    name: Fermentación de biomasa y micoproteína
+    rule: cpc+keyword
+    cpc_any: ["A23J1/008", "A23J3/20", "A23L31/00", "A23L33/195", "A23K10/16"]
+    keywords_any: ["mycoprotein", "mycelium", "fungal biomass", "single cell protein",
+                   "single-cell protein", "microbial protein", "biomass fermentation"]
+    science:
+      rule: keyword  # "mycelium" + "food" traía ecología de suelos
+      # "microbial protein" traía rumen; "biomass fermentation", biocombustibles;
+      # "single-cell protein" a secas, proteómica de células individuales
+      keyword_groups:
+        - [mycoprotein, "single cell protein", "single-cell protein", "mycelium-based food",
+           "fungal biomass protein", "microbial biomass protein"]
+        - [food, feed, nutrition, "alternative protein", diet, "protein source"]
+      title_keywords_any: [mycoprotein, "single cell protein", "single-cell protein", mycelium,
+                           "fungal biomass", "fungal protein", "microbial protein"]
+
+  - id: carne_cultivada
+    name: Carne cultivada
+    rule: cpc|keyword
+    cpc_qualified:
+      # células de músculo, grasa y tejido conectivo solo con contexto de carne o proteína
+      - codes: ["C12N5/0658", "C12N5/0653", "C12N5/0652"]
+        with_any: ["A23L13", "A23J"]
+    keywords_any: ["cultured meat", "cultivated meat", "cell-based meat", "in vitro meat",
+                   "cell-cultured meat", "lab-grown meat", "cultured seafood"]
+    science:
+      rule: keyword
+      keywords_any: ["cultured meat", "cultivated meat", "cell-based meat", "in vitro meat",
+                     "cellular agriculture", "cultured seafood", "cultivated seafood"]
+      # evals 2026-10-21: revisiones generales y acuicultura; "cell-cultured" y "lab-grown"
+      # traían cultivos celulares médicos por la reducción a raíz de la búsqueda
+      title_keywords_any: ["cultured meat", "cultivated meat", "cell-based meat", "in vitro meat",
+                           "cellular agriculture", "cultured seafood", "cultivated seafood",
+                           "cell-based seafood"]
+
+  - id: microalgas_alimento
+    name: Microalgas para alimentos
+    rule: cpc+keyword
+    cpc_any: ["C12N1/12", "A23J1/009", "A23J3/20"]
+    keywords_any: ["microalgae", "microalgal", "spirulina", "chlorella", "Arthrospira",
+                   "Nannochloropsis", "Euglena"]
+    science:
+      rule: keyword  # el topic T10476 mezcla biocombustibles: se exige contexto alimentario
+      keyword_groups:
+        - [microalgae, microalgal, spirulina, chlorella, Arthrospira, Nannochloropsis, Euglena]
+        - ["functional food", "food product", "food ingredient", "alternative protein",
+           "protein source", nutraceutical, "food application", "novel food",
+           "human consumption", "food industry"]
+      # evals 2026-10-21: revisiones donde las microalgas son una fuente más entre muchas
+      title_keywords_any: [microalgae, microalgal, spirulina, chlorella, Arthrospira,
+                           Nannochloropsis, Euglena]
+
+  - id: proteina_gases
+    name: Proteína a partir de gases (CO2, H2, metano)
+    rule: cpc+keyword
+    cpc_any: ["A23J3/20", "A23J1/008", "A23K10/16", "A23L33/195", "C12N1/20", "C12N1/26",
+              "C12N1/32"]
+    keyword_groups:
+      - ["hydrogen-oxidizing", "hydrogenotrophic", "methanotroph", "methanotrophic",
+         "gas fermentation", "Cupriavidus", "knallgas"]
+      - ["protein"]
+    science:
+      rule: keyword
+      keyword_groups:
+        - ["hydrogen-oxidizing", "hydrogen-oxidising", hydrogenotrophic, methanotroph,
+           methanotrophic, "gas fermentation", Cupriavidus, knallgas]
+        - ["single cell protein", "single-cell protein", "microbial protein",
+           "protein production", "feed protein", "food protein"]
+
+lenses: [all, international]
+min_families_per_period: 30

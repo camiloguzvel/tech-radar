@@ -1,0 +1,7 @@
+frente,labeler,precision,precision_ci_low,precision_ci_high,nucleo_si_no_dudoso,frontera_si_no_dudoso,adyacente_si_no_dudoso,asignados_2016_2025,universo_excluido,recall_estimado,reasignados_a
+pfas_remocion,claude-opus,0.2857142857142857,0.0822171657090155,0.6410709098517873,2/5/1,1/1/0,0/3/0,3544,10747,1.0,"ninguno, otro_dominio"
+desalinizacion_membranas,claude-opus,1.0,0.6456611570247934,1.0,7/0/1,1/1/0,2/0/1,29577,29825,0.49791252819770376,ninguno
+agua_atmosferica,claude-opus,0.8571428571428571,0.48686549668097007,0.9743210440510253,6/1/1,0/2/0,0/3/0,1500,5914,1.0,"ninguno, otro_dominio"
+reutilizacion_avanzada,claude-opus,0.875,0.5291051942301386,0.9775830911367038,7/1/0,2/0/0,1/2/0,43404,31665,0.7825213512316235,"desalinizacion_membranas, otro_dominio"
+redes_inteligentes,claude-opus,1.0,0.6096569663469354,0.9999999999999999,6/0/2,0/1/1,0/2/1,5031,22868,1.0,"ninguno, otro_dominio"
+riego_eficiencia,claude-opus,1.0,0.5655085052479191,1.0,5/0/3,1/0/1,0/1/2,14442,19678,1.0,otro_dominio
