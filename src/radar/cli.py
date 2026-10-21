@@ -143,5 +143,30 @@ def openalex_run(domains: str = DOMAINS_OPT) -> None:
     openalex_build(domains=domains, fetch_institutions=True)
 
 
+epo_app = typer.Typer(no_args_is_help=True, help="Patentes: ingesta de EPO OPS.")
+app.add_typer(epo_app, name="epo")
+
+
+@epo_app.command("ingest")
+def epo_ingest(domains: str = DOMAINS_OPT) -> None:
+    """Baja biblio por frente × trimestre a data/raw (reanudable; frena en 3,5 GB/semana)."""
+    from radar.connectors.epo_ops import OpsClient
+    from radar.core import runlog
+    from radar.ingest.epo_ops_biblio import ingest_biblio
+
+    client = OpsClient.from_env()
+    run_id = runlog.new_run_id("epo")
+    report = ingest_biblio(client, _select_domains(domains), run_id)
+    runlog.append("epo_calls", [{"run_id": run_id, **c} for c in client.log])
+    runlog.append("epo_runs", [report.__dict__ | {"week_bytes_used": client.week_bytes_used}])
+    typer.echo(
+        f"{run_id}: {len(report.done)} trimestres bajados, {len(report.skipped)} ya estaban, "
+        f"{len(report.errors)} con error, {len(report.pending)} pendientes; "
+        f"semana={client.week_bytes_used / 1e9:.2f} GB"
+    )
+    if report.quota_exceeded:
+        typer.echo("Freno de cuota semanal: vuelve a correr el comando el lunes (00:00 GMT).")
+
+
 if __name__ == "__main__":
     app()
